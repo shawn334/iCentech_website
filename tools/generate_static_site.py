@@ -146,62 +146,136 @@ PAGE_RELATIONS = {
 
 HOME_SECTIONS = {
     "en": {
-        "eyebrow": "One team for multilingual delivery",
+        "eyebrow": "Localization for teams launching globally",
         "trust": [
-            "Translation, localization, QA, and engineering together",
-            "100+ languages supported",
-            "Human review with AI support",
+            "Customer content, product UI, and support assets",
+            "Human review backed by QA and automation",
+            "One partner from planning to delivery",
         ],
         "stats": [
             {"value": "100+", "label": "Languages supported"},
-            {"value": "6", "label": "Core service areas"},
-            {"value": "One team", "label": "Single delivery partner"},
-            {"value": "AI + Human", "label": "Balanced workflow"},
+            {"value": "ISO", "label": "17100 and 18587 certified"},
+            {"value": "Content + Product", "label": "One delivery partner"},
+            {"value": "Ongoing", "label": "Support for releases and updates"},
         ],
-        "value_cards": [
-            {"title": "Less coordination", "body": "You work with one team instead of multiple vendors."},
-            {"title": "Clearer delivery", "body": "Each page explains what you get and when to use it."},
-            {"title": "Faster decisions", "body": "Shorter copy helps buyers understand the offer quickly."},
+        "hero_badges": ["Websites", "Apps", "Manuals", "Videos", "QA", "Help Center"],
+        "visual_steps": [
+            {"kicker": "Input", "title": "Source assets", "body": "Web, app, docs, and media"},
+            {"kicker": "Plan", "title": "Localization scope", "body": "Languages, workflow, and review"},
+            {"kicker": "Build", "title": "Production and QA", "body": "Translate, engineer, and validate"},
+            {"kicker": "Launch", "title": "Ready to publish", "body": "Approved assets for every market"},
         ],
-        "process": ["Share your goal", "Confirm scope and languages", "Produce and review", "Deliver and improve"],
-        "ai_ready_title": "ISO 17100 and ISO 18587 certified",
-        "ai_ready_body": "Our translation and post-editing workflows follow recognized international standards for quality and consistency.",
-        "ai_ready_points": [
+        "solutions": [
+            {
+                "title": "Content Localization",
+                "body": "Launch multilingual websites, documents, campaigns, and knowledge content with consistent terminology and review.",
+                "href": "website-localization",
+                "items": ["Websites", "Manuals", "Marketing", "Knowledge Base"],
+            },
+            {
+                "title": "Product Localization",
+                "body": "Localize product strings, release assets, engineering handoff, and QA without splitting the workflow across vendors.",
+                "href": "apps-localization",
+                "items": ["Apps", "UI strings", "Release QA", "LQA"],
+            },
+            {
+                "title": "Media and Training",
+                "body": "Adapt video, eLearning, subtitles, voice, and live sessions for regional teams, partners, and customers.",
+                "href": "multimedia-localization",
+                "items": ["Subtitles", "Dubbing", "Courses", "Live sessions"],
+            },
+        ],
+        "benefits": [
+            {"title": "Fewer handoffs", "body": "Keep translation, localization, engineering, and QA in one coordinated delivery loop."},
+            {"title": "More launch confidence", "body": "Catch linguistic, layout, and workflow issues before they reach customers."},
+            {"title": "A clearer operating model", "body": "See what is being localized, who reviews it, and what is ready to ship."},
+        ],
+        "process": [
+            {"title": "Align on goals", "body": "Review target markets, content types, platforms, and deadlines."},
+            {"title": "Prepare scope", "body": "Organize assets, terminology, workflow, and approval checkpoints."},
+            {"title": "Localize and QA", "body": "Translate, adapt, engineer, and review in a coordinated cycle."},
+            {"title": "Deliver and iterate", "body": "Ship approved assets and keep future updates easier to manage."},
+        ],
+        "proof_title": "Quality and process you can show internally",
+        "proof_body": "Useful for teams that need clear standards, fewer handoffs, and a repeatable multilingual workflow.",
+        "proof_points": [
             "ISO 17100:2015 for translation services",
             "ISO 18587:2017 for machine translation post-editing",
-            "A better fit for projects that need clear process and dependable review",
+            "Human review and QA where quality matters most",
         ],
-        "cta_title": "Need a simpler multilingual workflow?",
-        "cta_body": "Start with the service pages below and see which setup fits your next launch.",
+        "audiences": [
+            {"title": "Product teams", "body": "For apps, UI strings, release notes, and multilingual QA."},
+            {"title": "Marketing teams", "body": "For websites, campaigns, collateral, and SEO-ready content."},
+            {"title": "Operations teams", "body": "For documentation, training, support, and ongoing updates."},
+        ],
+        "cta_title": "Plan the next multilingual launch with less rework",
+        "cta_body": "Start with the solution area that matches your immediate need, then define scope and languages with one team.",
     },
     "zh": {
-        "eyebrow": "一支团队完成多语言交付",
+        "eyebrow": "面向全球发布团队的本地化支持",
         "trust": [
-            "把翻译、本地化、测试和工程放到一起",
-            "支持 100+ 语言",
-            "人工把关，AI 提效",
+            "覆盖客户内容、产品界面和支持材料",
+            "人工把关，结合 QA 与自动化",
+            "从规划到交付由一个团队衔接",
         ],
         "stats": [
             {"value": "100+", "label": "支持语言"},
-            {"value": "6", "label": "核心服务方向"},
-            {"value": "一个团队", "label": "统一交付窗口"},
-            {"value": "AI + 人工", "label": "平衡效率与质量"},
+            {"value": "ISO", "label": "17100 与 18587 认证"},
+            {"value": "内容 + 产品", "label": "统一交付团队"},
+            {"value": "持续更新", "label": "支持发布后的迭代"},
         ],
-        "value_cards": [
-            {"title": "更少沟通成本", "body": "你不需要同时协调多个供应商。"},
-            {"title": "更清楚的交付", "body": "每一页都直接说明能帮你解决什么。"},
-            {"title": "更快做决定", "body": "文案更短、更直接，更容易判断是否匹配。"},
+        "hero_badges": ["网站", "应用", "说明书", "视频", "质检", "帮助中心"],
+        "visual_steps": [
+            {"kicker": "输入", "title": "源内容资产", "body": "网站、应用、文档与多媒体"},
+            {"kicker": "规划", "title": "本地化范围", "body": "语言、流程与审核方式"},
+            {"kicker": "执行", "title": "生产与质检", "body": "翻译、工程与 QA 协同"},
+            {"kicker": "发布", "title": "可上线交付", "body": "为不同市场准备好版本"},
         ],
-        "process": ["告诉我们目标", "确认范围和语言", "执行与复核", "交付与优化"],
-        "ai_ready_title": "通过 ISO 17100 与 ISO 18587 认证",
-        "ai_ready_body": "我们的翻译与机器翻译后编辑流程，按照国际通行标准执行，更重视质量、一致性和可追踪交付。",
-        "ai_ready_points": [
+        "solutions": [
+            {
+                "title": "内容本地化",
+                "body": "帮助你把网站、文档、营销内容和知识内容更稳定地做成多语言版本，保持术语和表达一致。",
+                "href": "website-localization",
+                "items": ["网站", "说明书", "营销内容", "知识库"],
+            },
+            {
+                "title": "产品本地化",
+                "body": "把产品字符串、发布材料、工程衔接和本地化测试放到同一条交付链路里，减少来回切换。",
+                "href": "apps-localization",
+                "items": ["应用", "界面文案", "发布测试", "LQA"],
+            },
+            {
+                "title": "多媒体与培训",
+                "body": "支持视频、eLearning、字幕、配音和现场沟通，让区域团队、合作方和客户更容易理解内容。",
+                "href": "multimedia-localization",
+                "items": ["字幕", "配音", "课程", "现场沟通"],
+            },
+        ],
+        "benefits": [
+            {"title": "更少交接", "body": "把翻译、本地化、工程和 QA 放进一条更顺的交付链路。"},
+            {"title": "更安心上线", "body": "在内容真正面对客户之前，把语言、版式和流程问题提前发现。"},
+            {"title": "更清楚的协作方式", "body": "更容易看到哪些内容在本地化、谁在审核、哪些版本已经可以交付。"},
+        ],
+        "process": [
+            {"title": "对齐目标", "body": "确认目标市场、内容类型、平台和时间安排。"},
+            {"title": "准备范围", "body": "整理资产、术语、流程节点和审核方式。"},
+            {"title": "执行与 QA", "body": "翻译、适配、工程处理和质检在同一周期内推进。"},
+            {"title": "交付与迭代", "body": "交付可上线版本，并让后续更新更容易维护。"},
+        ],
+        "proof_title": "能让你在内部也更好说明的流程与质量",
+        "proof_body": "适合重视标准、交付透明度和长期多语言协作方式的团队。",
+        "proof_points": [
             "ISO 17100:2015 翻译服务标准",
             "ISO 18587:2017 机器翻译后编辑标准",
-            "更适合重视流程规范与复核质量的项目",
+            "在关键质量环节保留人工复核与 QA",
         ],
-        "cta_title": "想把多语言流程做得更简单？",
-        "cta_body": "先从下面的服务页开始，看哪种方式最适合你的项目。",
+        "audiences": [
+            {"title": "产品团队", "body": "适合应用、界面文案、版本说明和多语言 QA。"},
+            {"title": "市场团队", "body": "适合网站、活动页、宣传资料和 SEO 内容。"},
+            {"title": "运营团队", "body": "适合文档、培训内容、支持材料和持续更新。"},
+        ],
+        "cta_title": "让下一次多语言发布少一点返工",
+        "cta_body": "先看最接近你当前需求的解决方案，再和一个团队一起确认范围和语言。",
     },
 }
 
@@ -209,7 +283,7 @@ PAGE_DETAILS = {
     "": {
         "theme": "home",
         "en": {
-            "intro": "If you need one partner for multilingual content and product delivery, iCentech brings translation, localization, engineering, QA, and AI support together.",
+            "intro": "Bring customer content, product UI, release assets, and multilingual QA into one coordinated delivery flow.",
             "highlights": [
                 "One team across content and product work",
                 "Clear process from request to delivery",
@@ -221,7 +295,7 @@ PAGE_DETAILS = {
             "eyebrow": "Global language support",
         },
         "zh": {
-            "intro": "如果你希望用一个合作伙伴完成多语言内容和产品交付，iCentech 可以把翻译、本地化、工程、测试和 AI 辅助流程放到一起。",
+            "intro": "把客户内容、产品界面、发布材料和多语言 QA 放进一条更清楚、更顺畅的交付流程。",
             "highlights": [
                 "一个团队覆盖内容和产品交付",
                 "从需求到交付流程更清楚",
@@ -1128,6 +1202,61 @@ def render_service_cards(data, lang):
     return "".join(cards)
 
 
+def render_home_solution_cards(home, lang):
+    label = "Best Fit" if lang == "en" else "适合场景"
+    cta = "View Solution" if lang == "en" else "查看方案"
+    cards = []
+    for index, item in enumerate(home["solutions"], start=1):
+        chips = "".join(f"<li>{html.escape(chip)}</li>" for chip in item["items"])
+        cards.append(
+            f"""
+            <article class="solution-card">
+              <div class="solution-card-top">
+                <span class="solution-index">{index:02d}</span>
+                <div>
+                  <span class="card-kicker">{label}</span>
+                  <h3>{html.escape(item['title'])}</h3>
+                </div>
+              </div>
+              <p>{html.escape(item['body'])}</p>
+              <ul class="solution-tags">{chips}</ul>
+              <a class="solution-link" href="{page_href(lang, item['href'])}">{cta}</a>
+            </article>
+            """
+        )
+    return "".join(cards)
+
+
+def render_home_visual(home):
+    badges = "".join(
+        f'<span class="hero-badge hero-badge-{index + 1}">{html.escape(item)}</span>'
+        for index, item in enumerate(home["hero_badges"])
+    )
+    nodes = "".join(
+        f"""
+        <article class="visual-node visual-node-{index + 1}">
+          <span class="visual-node-kicker">{html.escape(item['kicker'])}</span>
+          <strong>{html.escape(item['title'])}</strong>
+          <p>{html.escape(item['body'])}</p>
+        </article>
+        """
+        for index, item in enumerate(home["visual_steps"])
+    )
+    return f"""
+    <div class="hero-visual hero-visual-map" aria-hidden="true">
+      <div class="hero-orb hero-orb-a"></div>
+      <div class="hero-orb hero-orb-b"></div>
+      <div class="hero-center-mark"></div>
+      <div class="visual-grid">
+        {nodes}
+      </div>
+      <div class="hero-badge-cloud">
+        {badges}
+      </div>
+    </div>
+    """
+
+
 def render_related_cards(data, page, lang):
     related_slugs = PAGE_RELATIONS.get(page["slug"], [])
     pages_by_slug = {item["slug"]: item for item in data["pages"]}
@@ -1196,25 +1325,37 @@ def render_home(page, lang, data):
         """
         for item in home["stats"]
     )
-    value_cards = "".join(
+    benefit_cards = "".join(
         f"""
-        <article class="panel soft-panel">
+        <article class="benefit-card">
           <h3>{html.escape(card['title'])}</h3>
           <p>{html.escape(card['body'])}</p>
         </article>
         """
-        for card in home["value_cards"]
+        for card in home["benefits"]
     )
     process = "".join(
         f"""
-        <li>
-          <span class="step-index">{index + 1:02d}</span>
-          <span>{html.escape(item)}</span>
-        </li>
+        <article class="process-step">
+          <span class="process-step-index">{index + 1:02d}</span>
+          <div class="process-step-copy">
+            <h3>{html.escape(item['title'])}</h3>
+            <p>{html.escape(item['body'])}</p>
+          </div>
+        </article>
         """
         for index, item in enumerate(home["process"])
     )
-    ai_points = "".join(f"<li>{html.escape(item)}</li>" for item in home["ai_ready_points"])
+    proof_points = "".join(f"<li>{html.escape(item)}</li>" for item in home["proof_points"])
+    audiences = "".join(
+        f"""
+        <article class="audience-item">
+          <h3>{html.escape(item['title'])}</h3>
+          <p>{html.escape(item['body'])}</p>
+        </article>
+        """
+        for item in home["audiences"]
+    )
     return f"""
     <section class="hero hero-home">
       <div class="hero-copy">
@@ -1222,46 +1363,48 @@ def render_home(page, lang, data):
         <h1>{html.escape(title)}</h1>
         <p class="lead">{html.escape(summary)}</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="{page_href(lang, 'translation')}">{'查看服务' if lang == 'zh' else 'Explore Services'}</a>
-          <a class="btn btn-secondary" href="{page_href(lang, 'company')}">{'了解 iCentech' if lang == 'zh' else 'About iCentech'}</a>
+          <a class="btn btn-primary" href="#solutions">{'查看解决方案' if lang == 'zh' else 'See Solutions'}</a>
+          <a class="btn btn-secondary" href="#workflow">{'查看交付方式' if lang == 'zh' else 'See Delivery Flow'}</a>
         </div>
         <ul class="trust-pills">{trust_items}</ul>
       </div>
+      {render_home_visual(home)}
     </section>
 
     <section class="metrics-grid">{stats_cards}</section>
 
-    <section class="section-shell">
+    <section id="solutions" class="section-shell">
       <div class="section-heading">
-        <span class="section-kicker">{'核心服务' if lang == 'zh' else 'Core Services'}</span>
-        <h2>{'看看我们可以怎么帮你' if lang == 'zh' else 'See how we can help'}</h2>
+        <span class="section-kicker">{'解决方案' if lang == 'zh' else 'Solutions'}</span>
+        <h2>{'先找到最接近你当前项目的方案' if lang == 'zh' else 'Start with the setup that matches your launch'}</h2>
+        <p>{'先按业务场景看，不必一开始就在多个服务模块之间来回比较。' if lang == 'zh' else 'Choose by business need first, instead of sorting through multiple service lines on day one.'}</p>
       </div>
-      <div class="card-grid">{render_service_cards(data, lang)}</div>
+      <div class="solution-grid">{render_home_solution_cards(home, lang)}</div>
     </section>
 
-    <section class="section-shell two-col-shell">
-      <article class="panel">
+    <section class="section-shell narrative-shell">
+      <article class="panel story-panel">
         <span class="section-kicker">{'为什么选择 iCentech' if lang == 'zh' else 'Why iCentech'}</span>
-        <h2>{'把多语言项目讲得更清楚，也做得更顺' if lang == 'zh' else 'Make multilingual delivery easier to understand and manage'}</h2>
+        <h2>{'把多语言发布做成一条更顺的交付链路' if lang == 'zh' else 'Keep multilingual launches moving without stitching together multiple vendors'}</h2>
         <p>{html.escape(detail['intro'])}</p>
-        {list_items(detail['highlights'])}
       </article>
-      <div class="stack-grid">
-        {value_cards}
+      <div class="benefit-grid">
+        {benefit_cards}
       </div>
     </section>
 
-    <section class="section-shell two-col-shell">
-      <article class="panel">
-        <span class="section-kicker">{'工作流程' if lang == 'zh' else 'Workflow'}</span>
-        <h2>{'从需求到交付，一步步推进' if lang == 'zh' else 'A simple path from request to delivery'}</h2>
-        <ol class="timeline-list">{process}</ol>
+    <section id="workflow" class="section-shell two-col-shell workflow-shell">
+      <article class="panel process-panel">
+        <span class="section-kicker">{'交付流程' if lang == 'zh' else 'Delivery Flow'}</span>
+        <h2>{'从目标到交付，团队知道下一步是什么' if lang == 'zh' else 'From scope to delivery, each step stays visible'}</h2>
+        <div class="process-list">{process}</div>
       </article>
-      <article class="panel ai-panel">
-        <span class="section-kicker">{'认证与质量' if lang == 'zh' else 'Certifications'}</span>
-        <h2>{html.escape(home['ai_ready_title'])}</h2>
-        <p>{html.escape(home['ai_ready_body'])}</p>
-        {list_items(home['ai_ready_points'])}
+      <article class="panel proof-panel">
+        <span class="section-kicker">{'适用团队' if lang == 'zh' else 'Where We Fit'}</span>
+        <h2>{html.escape(home['proof_title'])}</h2>
+        <p>{html.escape(home['proof_body'])}</p>
+        <div class="audience-list">{audiences}</div>
+        <ul class="proof-points">{proof_points}</ul>
       </article>
     </section>
 
@@ -1271,8 +1414,8 @@ def render_home(page, lang, data):
         <h2>{html.escape(home['cta_title'])}</h2>
         <p>{html.escape(home['cta_body'])}</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="{page_href(lang, 'technology')}">{'查看技术能力' if lang == 'zh' else 'See Technology'}</a>
-          <a class="btn btn-secondary" href="{page_href(lang, 'ai')}">{'查看 AI 页面' if lang == 'zh' else 'See AI Page'}</a>
+          <a class="btn btn-primary" href="{page_href(lang, 'website-localization')}">{'网站本地化' if lang == 'zh' else 'Website Localization'}</a>
+          <a class="btn btn-secondary" href="{page_href(lang, 'apps-localization')}">{'产品本地化' if lang == 'zh' else 'Product Localization'}</a>
         </div>
       </article>
     </section>
@@ -1574,7 +1717,7 @@ def render_page(data, page, lang):
 {render_favicon_links()}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{asset_href('site.css')}">
   <script>{THEME_INIT_SCRIPT}</script>
   <script type="application/ld+json">{build_schema(data, page, lang)}</script>
@@ -1631,7 +1774,7 @@ def render_blog_detail_document(data, page, post, lang):
 {render_favicon_links()}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{asset_href('site.css')}">
   <script>{THEME_INIT_SCRIPT}</script>
   <script type="application/ld+json">{build_blog_schema(data, post, lang)}</script>
@@ -1891,8 +2034,8 @@ SITE_CSS = dedent(
     """
     :root {
       --font-body: "Inter", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
-      --font-heading: "Space Grotesk", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
-      --font-mono: "IBM Plex Mono", "SFMono-Regular", "Consolas", monospace;
+      --font-heading: "Inter", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "Inter", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
       --brand-blue-700: #0c79d6;
       --brand-blue-500: #0596ef;
       --brand-blue-300: #8fd0ff;
@@ -2095,10 +2238,10 @@ SITE_CSS = dedent(
       border: 1px solid rgba(143, 208, 255, 0.1);
       background: rgba(255, 255, 255, 0.04);
       color: var(--ink);
-      font-size: 11px;
+      font-size: 12px;
       font-family: var(--font-mono);
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.04em;
       cursor: pointer;
       appearance: none;
       transition: all 0.2s ease;
@@ -2168,7 +2311,7 @@ SITE_CSS = dedent(
       font-weight: 700;
       font-size: 12px;
       font-family: var(--font-mono);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.02em;
       min-height: 42px;
     }
 
@@ -2192,7 +2335,7 @@ SITE_CSS = dedent(
       color: var(--ink-soft);
       font-size: 0.84rem;
       font-family: var(--font-mono);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
     }
 
@@ -2209,7 +2352,7 @@ SITE_CSS = dedent(
     .hero {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 18px;
+      gap: 22px;
       align-items: start;
     }
 
@@ -2224,27 +2367,35 @@ SITE_CSS = dedent(
       backdrop-filter: blur(12px);
     }
 
+    .hero-home {
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      align-items: stretch;
+    }
+
     .hero-copy {
       width: 100%;
-      padding: 40px;
+      padding: 44px;
       border-radius: var(--radius-xl);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 50%),
         radial-gradient(circle at top left, rgba(120, 197, 21, 0.16), transparent 28%),
         linear-gradient(145deg, rgba(16, 35, 52, 0.96), rgba(10, 24, 36, 0.98));
+      display: grid;
+      align-content: center;
     }
 
     .hero-visual {
-      width: min(940px, 100%);
-      justify-self: center;
+      width: 100%;
+      justify-self: stretch;
       border-radius: var(--radius-xl);
       overflow: hidden;
-      min-height: 0;
-      padding: 18px;
+      min-height: 100%;
+      padding: 26px;
       background:
         radial-gradient(circle at top right, rgba(120, 197, 21, 0.2), transparent 25%),
         radial-gradient(circle at bottom left, rgba(5, 150, 239, 0.2), transparent 25%),
         linear-gradient(180deg, rgba(16, 35, 52, 0.96), rgba(9, 24, 35, 0.98));
+      position: relative;
     }
 
     .hero-image {
@@ -2253,6 +2404,197 @@ SITE_CSS = dedent(
       max-height: 100%;
       object-fit: contain;
       border-radius: 18px;
+    }
+
+    .hero-visual-map {
+      display: grid;
+      align-items: center;
+      min-height: 540px;
+      isolation: isolate;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(10px);
+      opacity: 0.7;
+      animation: drift 10s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .hero-orb-a {
+      width: 220px;
+      height: 220px;
+      right: -36px;
+      top: -42px;
+      background: radial-gradient(circle, rgba(5, 150, 239, 0.26), transparent 68%);
+    }
+
+    .hero-orb-b {
+      width: 260px;
+      height: 260px;
+      left: -84px;
+      bottom: -96px;
+      background: radial-gradient(circle, rgba(120, 197, 21, 0.2), transparent 68%);
+      animation-delay: -4s;
+    }
+
+    .hero-center-mark {
+      position: absolute;
+      inset: calc(50% - 56px) auto auto calc(50% - 56px);
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(5, 150, 239, 0.12) 36%, transparent 70%),
+        linear-gradient(135deg, rgba(5, 150, 239, 0.32), rgba(120, 197, 21, 0.22));
+      border: 1px solid rgba(143, 208, 255, 0.2);
+      box-shadow: 0 0 0 18px rgba(5, 150, 239, 0.05);
+      animation: pulse 4s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .hero-center-mark::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+    }
+
+    .visual-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      z-index: 2;
+    }
+
+    .visual-grid::before,
+    .visual-grid::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .visual-grid::before {
+      left: calc(50% - 1px);
+      top: 72px;
+      bottom: 72px;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, rgba(143, 208, 255, 0.5), transparent);
+      animation: flow 5s linear infinite;
+    }
+
+    .visual-grid::after {
+      top: calc(50% - 1px);
+      left: 72px;
+      right: 72px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(143, 208, 255, 0.5), transparent);
+      animation: flow 5s linear infinite reverse;
+    }
+
+    .visual-node {
+      position: relative;
+      min-height: 168px;
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(143, 208, 255, 0.14);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 42%),
+        linear-gradient(160deg, rgba(16, 35, 52, 0.96), rgba(10, 24, 36, 0.98));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .visual-node-2,
+    .visual-node-4 {
+      animation-delay: -3s;
+    }
+
+    .visual-node strong {
+      font-size: 1.3rem;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+
+    .visual-node p {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+    }
+
+    .visual-node-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      width: fit-content;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(143, 208, 255, 0.12);
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--brand-blue-300);
+    }
+
+    .hero-badge-cloud {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 208, 255, 0.14);
+      background: rgba(8, 19, 28, 0.72);
+      color: #f4fbff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.16);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-badge-1 { top: 26px; left: 22px; }
+    .hero-badge-2 { top: 24px; right: 34px; animation-delay: -2s; }
+    .hero-badge-3 { top: 48%; left: 10px; animation-delay: -4s; }
+    .hero-badge-4 { top: 48%; right: 8px; animation-delay: -1s; }
+    .hero-badge-5 { left: 40px; bottom: 24px; animation-delay: -3s; }
+    .hero-badge-6 { right: 44px; bottom: 16px; animation-delay: -5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.92; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(12px, -10px, 0); }
+    }
+
+    @keyframes flow {
+      0% { opacity: 0.25; }
+      50% { opacity: 0.82; }
+      100% { opacity: 0.25; }
     }
 
     .eyebrow,
@@ -2264,7 +2606,7 @@ SITE_CSS = dedent(
       font-size: 11px;
       font-family: var(--font-mono);
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #b8f05f;
     }
@@ -2428,6 +2770,10 @@ SITE_CSS = dedent(
       max-width: 820px;
     }
 
+    .section-heading p {
+      max-width: 62ch;
+    }
+
     .two-col-shell {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       align-items: start;
@@ -2477,6 +2823,71 @@ SITE_CSS = dedent(
       gap: 18px;
     }
 
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .solution-card {
+      display: grid;
+      gap: 16px;
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(143, 208, 255, 0.12);
+      background:
+        radial-gradient(circle at top right, rgba(5, 150, 239, 0.18), transparent 32%),
+        linear-gradient(180deg, rgba(16, 35, 52, 0.96), rgba(10, 24, 36, 0.98));
+      box-shadow: var(--shadow-md);
+    }
+
+    .solution-card-top {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .solution-index {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(5, 150, 239, 0.2), rgba(120, 197, 21, 0.2));
+      color: #ffffff;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .solution-tags {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .solution-tags li {
+      margin: 0;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 208, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .solution-link {
+      width: fit-content;
+      text-decoration: none;
+      color: #d6f99b;
+      font-weight: 700;
+    }
+
     .compact-grid {
       grid-template-columns: 1fr;
     }
@@ -2506,6 +2917,41 @@ SITE_CSS = dedent(
 
     .quick-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .narrative-shell {
+      gap: 20px;
+    }
+
+    .story-panel {
+      padding: 34px;
+      background:
+        radial-gradient(circle at top right, rgba(5, 150, 239, 0.14), transparent 26%),
+        linear-gradient(160deg, rgba(18, 39, 57, 0.96), rgba(10, 24, 36, 0.99));
+    }
+
+    .story-panel p {
+      max-width: 68ch;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .benefit-card {
+      padding: 24px;
+      border-radius: 20px;
+      border: 1px solid rgba(143, 208, 255, 0.1);
+      background:
+        radial-gradient(circle at top left, rgba(120, 197, 21, 0.14), transparent 28%),
+        linear-gradient(180deg, rgba(18, 39, 57, 0.94), rgba(10, 24, 36, 0.98));
+      box-shadow: var(--shadow-md);
+    }
+
+    .benefit-card p {
+      margin-top: 8px;
     }
 
     .blog-grid {
@@ -2604,6 +3050,96 @@ SITE_CSS = dedent(
       font-weight: 800;
       letter-spacing: 0.04em;
       font-family: var(--font-mono);
+    }
+
+    .workflow-shell {
+      align-items: stretch;
+    }
+
+    .process-panel,
+    .proof-panel {
+      height: 100%;
+    }
+
+    .process-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .process-list::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 16px;
+      bottom: 16px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(5, 150, 239, 0.1), rgba(5, 150, 239, 0.44), rgba(120, 197, 21, 0.26));
+    }
+
+    .process-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 14px;
+      padding: 18px 18px 18px 0;
+      align-items: start;
+    }
+
+    .process-step-index {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(5, 150, 239, 0.22), rgba(120, 197, 21, 0.26));
+      border: 1px solid rgba(143, 208, 255, 0.16);
+      color: #ffffff;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      font-family: var(--font-mono);
+    }
+
+    .process-step-copy {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(143, 208, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .process-step-copy h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+    }
+
+    .audience-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .audience-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(143, 208, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .audience-item h3 {
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+    }
+
+    .proof-points {
+      margin: 22px 0 0;
+      padding-left: 20px;
+    }
+
+    .proof-points li {
+      margin-bottom: 10px;
     }
 
     .cta-panel {
@@ -2773,6 +3309,51 @@ SITE_CSS = dedent(
         linear-gradient(180deg, #ffffff, #f6fbfe);
     }
 
+    html[data-theme="light"] .solution-card,
+    html[data-theme="light"] .benefit-card {
+      border-color: rgba(17, 52, 76, 0.08);
+      background:
+        radial-gradient(circle at top right, rgba(5, 150, 239, 0.08), transparent 30%),
+        linear-gradient(180deg, #ffffff, #f6fbfe);
+      box-shadow: var(--shadow-md);
+    }
+
+    html[data-theme="light"] .story-panel {
+      background:
+        radial-gradient(circle at top right, rgba(5, 150, 239, 0.08), transparent 26%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 254, 0.96));
+    }
+
+    html[data-theme="light"] .visual-node,
+    html[data-theme="light"] .process-step-copy,
+    html[data-theme="light"] .audience-item {
+      border-color: rgba(17, 52, 76, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 251, 255, 0.96));
+      box-shadow: none;
+    }
+
+    html[data-theme="light"] .visual-node strong,
+    html[data-theme="light"] .solution-index,
+    html[data-theme="light"] .process-step-index {
+      color: var(--brand-blue-700);
+    }
+
+    html[data-theme="light"] .hero-badge {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(17, 52, 76, 0.08);
+      color: var(--ink);
+      box-shadow: 0 12px 24px rgba(17, 52, 76, 0.08);
+    }
+
+    html[data-theme="light"] .hero-center-mark {
+      background:
+        radial-gradient(circle, rgba(5, 150, 239, 0.1) 0%, rgba(120, 197, 21, 0.12) 38%, transparent 70%),
+        linear-gradient(135deg, rgba(5, 150, 239, 0.16), rgba(120, 197, 21, 0.14));
+      border-color: rgba(17, 52, 76, 0.08);
+      box-shadow: 0 0 0 18px rgba(5, 150, 239, 0.04);
+    }
+
     html[data-theme="light"] .metric-card {
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(242, 249, 254, 0.94));
@@ -2797,7 +3378,8 @@ SITE_CSS = dedent(
     }
 
     html[data-theme="light"] .text-link,
-    html[data-theme="light"] .post-content a {
+    html[data-theme="light"] .post-content a,
+    html[data-theme="light"] .solution-link {
       color: var(--brand-blue-700);
     }
 
@@ -3038,10 +3620,16 @@ SITE_CSS = dedent(
       .two-col-shell,
       .metrics-grid,
       .card-grid,
+      .solution-grid,
       .quick-grid,
       .blog-grid,
+      .benefit-grid,
       .stack-grid-three,
       .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-home {
         grid-template-columns: 1fr;
       }
     }
@@ -3094,6 +3682,36 @@ SITE_CSS = dedent(
         position: static;
         margin-top: 10px;
         min-width: 0;
+      }
+
+      .hero-visual-map {
+        min-height: 420px;
+        padding-top: 70px;
+      }
+
+      .visual-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-grid::before,
+      .visual-grid::after,
+      .hero-center-mark {
+        display: none;
+      }
+
+      .hero-badge-1 { top: 16px; left: 16px; }
+      .hero-badge-2 { top: 16px; right: 16px; }
+      .hero-badge-3 { top: auto; bottom: 86px; left: 14px; }
+      .hero-badge-4 { top: auto; bottom: 86px; right: 14px; }
+      .hero-badge-5 { left: 18px; bottom: 16px; }
+      .hero-badge-6 { right: 18px; bottom: 16px; }
+
+      .solution-card,
+      .benefit-card,
+      .process-step-copy,
+      .audience-item {
+        padding-left: 18px;
+        padding-right: 18px;
       }
 
       .blog-card {

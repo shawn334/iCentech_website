@@ -15,15 +15,15 @@ This folder now acts as the single source of truth for the redesigned website's 
 ## Typography
 
 - Body: `Inter` + `Noto Sans SC`
-- Headings: `Space Grotesk` + `Noto Sans SC`
-- Utility / metadata: `IBM Plex Mono`
+- Headings: `Inter` + `Noto Sans SC`
+- Utility / metadata: `Inter` + `Noto Sans SC`
 - Source: Google Fonts
 - License model: open-source, free to use, and suitable for public commercial websites
 
 说明：
 - 正文字体使用 `Inter` 搭配 `Noto Sans SC`
-- 标题字体使用 `Space Grotesk` 搭配 `Noto Sans SC`
-- 标签、导航元信息使用 `IBM Plex Mono`
+- 标题字体使用 `Inter` 搭配 `Noto Sans SC`
+- 标签、导航元信息也统一使用 `Inter` 搭配 `Noto Sans SC`
 - 以上字体均为公开、免费、合法可商用的开源字体
 
 ## System Notes
