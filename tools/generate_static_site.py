@@ -958,6 +958,8 @@ def get_group_label(page, lang):
 
 
 def render_breadcrumbs(page, lang):
+    if not page["slug"]:
+        return ""
     home_label = "首页" if lang == "zh" else "Home"
     current_label = page["title_zh"] if lang == "zh" else page["title_en"]
     parts = [f'<a href="{page_href(lang, "")}">{html.escape(home_label)}</a>']
@@ -989,6 +991,13 @@ def render_nav(page, lang):
     items = []
     for group in MENU_GROUPS:
         group_title = group["title_zh"] if lang == "zh" else group["title_en"]
+        if len(group["items"]) == 1:
+            item = group["items"][0]
+            active = " is-active" if item["slug"] == page["slug"] else ""
+            items.append(
+                f'<a class="menu-title menu-link{active}" href="{page_href(lang, item["slug"])}">{html.escape(group_title)}</a>'
+            )
+            continue
         links = []
         for item in group["items"]:
             label = item["zh"] if lang == "zh" else item["en"]
@@ -1010,16 +1019,16 @@ def render_nav(page, lang):
 
 
 def render_brand(lang):
-    logo_path = ASSETS_DIR / LOGO_ASSET_NAME
-    logo_html = (
-        f'<img class="brand-logo" src="{asset_href(LOGO_ASSET_NAME)}" alt="iCentech logo">'
-        if logo_path.exists()
-        else '<span class="brand-mark brand-mark-fallback" aria-hidden="true">i</span>'
-    )
     return f"""
     <a class="brand" href="{page_href(lang, '')}">
-      <span class="brand-badge">
-        {logo_html}
+      <span class="brand-mark" aria-hidden="true">
+        <span class="brand-mark-arc"></span>
+        <span class="brand-mark-disc"></span>
+        <span class="brand-mark-stem"></span>
+        <span class="brand-mark-dot"></span>
+      </span>
+      <span class="brand-copy">
+        <span class="brand-name">iCentech</span>
       </span>
     </a>
     """
@@ -1109,6 +1118,8 @@ def render_footer_content(lang):
     address_label = "地址" if lang == "zh" else "Addresses"
     contact_label = "联系方式" if lang == "zh" else "Contact"
     social_label = "社交媒体" if lang == "zh" else "Social"
+    brand_name = "E森泰 iCentech" if lang == "zh" else "iCentech"
+    legal_name = "艾森思伟科技（北京）有限公司" if lang == "zh" else "iCentech Limited"
     brand_summary = (
         "让多语言内容、产品与全球交付更清晰、更省心。"
         if lang == "zh"
@@ -1116,16 +1127,29 @@ def render_footer_content(lang):
     )
     office_beijing = "北京办公室" if lang == "zh" else "Beijing Office"
     office_hk = "香港办公室" if lang == "zh" else "Hong Kong Office"
+    beijing_address = (
+        "中国北京市东城区 DoBe WE International Hub wehome110"
+        if lang == "zh"
+        else "wehome110, DoBe WE International Hub, Dongcheng, Beijing, PRC"
+    )
+    hong_kong_address = (
+        "中国香港上环德辅道西 32-36 号 Lee Fung Commercial Building 2 楼"
+        if lang == "zh"
+        else "2/F, Lee Fung Commercial Building, 32-36 Des Voeux Rd W, Sheung Wan, Hong Kong"
+    )
     follow_label = "关注 iCentech" if lang == "zh" else "Follow iCentech"
     return f"""
     <div class="footer-grid">
       <div class="footer-block footer-brand-block">
-        <div class="footer-heading">
+        <div class="footer-heading footer-brand-heading">
           <span class="footer-heading-icon">{render_footer_icon("brand")}</span>
-          <p class="footer-title">iCentech</p>
+          <div class="footer-brand-copy">
+            <p class="footer-brand-name">{brand_name}</p>
+            <p class="footer-company-name">{legal_name}</p>
+          </div>
         </div>
         <p class="footer-lead">{brand_summary}</p>
-        <p class="footer-meta">iCentech Limited © 2026</p>
+        <p class="footer-meta">© 2026</p>
       </div>
       <div class="footer-block">
         <div class="footer-heading">
@@ -1134,11 +1158,11 @@ def render_footer_content(lang):
         </div>
         <div class="footer-stack">
           <p class="footer-item-label">{office_beijing}</p>
-          <p class="footer-item-copy">wehome110, DoBe WE International Hub, Dongcheng, Beijing, PRC</p>
+          <p class="footer-item-copy">{beijing_address}</p>
         </div>
         <div class="footer-stack">
           <p class="footer-item-label">{office_hk}</p>
-          <p class="footer-item-copy">2/F, Lee Fung Commercial Building, 32-36 Des Voeux Rd W, Sheung Wan, Hong Kong</p>
+          <p class="footer-item-copy">{hong_kong_address}</p>
         </div>
       </div>
       <div class="footer-block">
@@ -1227,11 +1251,9 @@ def render_home_solution_cards(home, lang):
     return "".join(cards)
 
 
-def render_home_visual(home):
-    badges = "".join(
-        f'<span class="hero-badge hero-badge-{index + 1}">{html.escape(item)}</span>'
-        for index, item in enumerate(home["hero_badges"])
-    )
+def render_home_visual(home, lang):
+    legend_title = "Typical Assets" if lang == "en" else "常见交付内容"
+    badges = "".join(f"<li>{html.escape(item)}</li>" for item in home["hero_badges"])
     nodes = "".join(
         f"""
         <article class="visual-node visual-node-{index + 1}">
@@ -1250,8 +1272,11 @@ def render_home_visual(home):
       <div class="visual-grid">
         {nodes}
       </div>
-      <div class="hero-badge-cloud">
-        {badges}
+      <div class="hero-legend">
+        <span class="hero-legend-title">{legend_title}</span>
+        <ul class="hero-tag-list">
+          {badges}
+        </ul>
       </div>
     </div>
     """
@@ -1368,7 +1393,7 @@ def render_home(page, lang, data):
         </div>
         <ul class="trust-pills">{trust_items}</ul>
       </div>
-      {render_home_visual(home)}
+      {render_home_visual(home, lang)}
     </section>
 
     <section class="metrics-grid">{stats_cards}</section>
@@ -2168,43 +2193,90 @@ SITE_CSS = dedent(
     .brand {
       display: inline-flex;
       align-items: center;
+      gap: 14px;
       text-decoration: none;
       min-width: 0;
     }
 
-    .brand-badge {
-      display: inline-grid;
-      place-items: center;
-      width: 156px;
-      min-height: 56px;
-      padding: 4px 6px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(143, 208, 255, 0.14);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
-    }
-
-    .brand-logo {
-      width: 100%;
-      max-width: 144px;
-      height: auto;
-      object-fit: contain;
-      object-position: center;
-      justify-self: center;
-      align-self: center;
-      filter: none;
-    }
-
-    .brand-mark-fallback {
-      display: inline-grid;
-      place-items: center;
-      width: 62px;
-      height: 62px;
+    .brand-mark {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      flex: 0 0 auto;
       border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(143, 208, 255, 0.12);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .brand-mark-arc,
+    .brand-mark-disc,
+    .brand-mark-stem,
+    .brand-mark-dot {
+      position: absolute;
+    }
+
+    .brand-mark-arc {
+      left: 6px;
+      top: 4px;
+      bottom: 4px;
+      width: 26px;
+      border-radius: 22px 0 0 22px;
+      background: linear-gradient(180deg, #70b71d, #4d8d0c);
+    }
+
+    .brand-mark-disc {
+      inset: 8px 8px 8px 14px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1f6a99, #3496d2);
+    }
+
+    .brand-mark-stem {
+      left: 29px;
+      top: 18px;
+      width: 9px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.98);
+      transform: rotate(16deg);
+      box-shadow: -3px 0 0 rgba(6, 17, 25, 0.12);
+    }
+
+    .brand-mark-stem::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: -11px;
+      width: 20px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .brand-mark-dot {
+      left: 31px;
+      top: 11px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: -2px 2px 0 rgba(6, 17, 25, 0.1);
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .brand-name {
+      color: var(--ink);
+      font-family: var(--font-heading);
+      font-size: clamp(1.45rem, 2vw, 1.95rem);
       font-weight: 800;
-      font-size: 28px;
-      color: white;
-      background: linear-gradient(135deg, var(--brand-blue-700), var(--brand-blue-500));
+      letter-spacing: -0.04em;
+      line-height: 1;
     }
 
     .menu-panel {
@@ -2247,7 +2319,13 @@ SITE_CSS = dedent(
       transition: all 0.2s ease;
     }
 
+    .menu-link {
+      text-decoration: none;
+    }
+
     .menu-title:hover,
+    .menu-link:hover,
+    .menu-link.is-active,
     .menu-group.is-open .menu-title,
     .menu-group:focus-within .menu-title {
       border-color: rgba(5, 150, 239, 0.32);
@@ -2546,35 +2624,46 @@ SITE_CSS = dedent(
       color: var(--brand-blue-300);
     }
 
-    .hero-badge-cloud {
-      position: absolute;
-      inset: 0;
+    .hero-legend {
+      position: relative;
       z-index: 3;
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 0 12px;
-      border-radius: 999px;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 22px;
       border: 1px solid rgba(143, 208, 255, 0.14);
-      background: rgba(8, 19, 28, 0.72);
-      color: #f4fbff;
-      font-size: 0.82rem;
-      font-weight: 600;
-      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.16);
-      animation: float 8s ease-in-out infinite;
+      background: linear-gradient(180deg, rgba(7, 17, 26, 0.32), rgba(7, 17, 26, 0.14));
+      backdrop-filter: blur(8px);
+      display: grid;
+      gap: 12px;
     }
 
-    .hero-badge-1 { top: 26px; left: 22px; }
-    .hero-badge-2 { top: 24px; right: 34px; animation-delay: -2s; }
-    .hero-badge-3 { top: 48%; left: 10px; animation-delay: -4s; }
-    .hero-badge-4 { top: 48%; right: 8px; animation-delay: -1s; }
-    .hero-badge-5 { left: 40px; bottom: 24px; animation-delay: -3s; }
-    .hero-badge-6 { right: 44px; bottom: 16px; animation-delay: -5s; }
+    .hero-legend-title {
+      color: color-mix(in srgb, var(--ink-soft) 72%, white 28%);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-tag-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-tag-list li {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(143, 208, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      color: var(--ink);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
@@ -2704,7 +2793,9 @@ SITE_CSS = dedent(
 
     .btn-primary {
       color: white;
-      background: linear-gradient(135deg, var(--brand-blue-700), var(--brand-blue-500));
+      border: 1px solid rgba(143, 208, 255, 0.14);
+      background: linear-gradient(135deg, #1b5879, #4e8821);
+      box-shadow: 0 12px 24px rgba(8, 24, 37, 0.24);
     }
 
     .btn-secondary {
@@ -3230,10 +3321,14 @@ SITE_CSS = dedent(
       border-bottom: 1px solid rgba(17, 52, 76, 0.08);
     }
 
-    html[data-theme="light"] .brand-badge {
-      background: white;
+    html[data-theme="light"] .brand-mark {
+      background: linear-gradient(180deg, #ffffff, #f1f8fd);
       border-color: rgba(17, 52, 76, 0.08);
-      box-shadow: 0 8px 18px rgba(17, 52, 76, 0.08);
+      box-shadow: 0 10px 18px rgba(17, 52, 76, 0.08);
+    }
+
+    html[data-theme="light"] .brand-name {
+      color: #153247;
     }
 
     html[data-theme="light"] .menu-title {
@@ -3243,6 +3338,8 @@ SITE_CSS = dedent(
     }
 
     html[data-theme="light"] .menu-title:hover,
+    html[data-theme="light"] .menu-link:hover,
+    html[data-theme="light"] .menu-link.is-active,
     html[data-theme="light"] .menu-group.is-open .menu-title,
     html[data-theme="light"] .menu-group:focus-within .menu-title {
       border-color: rgba(5, 150, 239, 0.24);
@@ -3339,11 +3436,20 @@ SITE_CSS = dedent(
       color: var(--brand-blue-700);
     }
 
-    html[data-theme="light"] .hero-badge {
+    html[data-theme="light"] .hero-legend {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 248, 252, 0.94));
+      border-color: rgba(17, 52, 76, 0.08);
+      box-shadow: none;
+    }
+
+    html[data-theme="light"] .hero-legend-title {
+      color: #4b6878;
+    }
+
+    html[data-theme="light"] .hero-tag-list li {
       background: rgba(255, 255, 255, 0.92);
       border-color: rgba(17, 52, 76, 0.08);
       color: var(--ink);
-      box-shadow: 0 12px 24px rgba(17, 52, 76, 0.08);
     }
 
     html[data-theme="light"] .hero-center-mark {
@@ -3361,6 +3467,22 @@ SITE_CSS = dedent(
 
     html[data-theme="light"] .metric-card strong {
       color: var(--brand-blue-700);
+    }
+
+    html[data-theme="light"] .eyebrow,
+    html[data-theme="light"] .section-kicker,
+    html[data-theme="light"] .card-kicker {
+      color: #436e16;
+    }
+
+    html[data-theme="light"] .visual-node-kicker {
+      color: #21536e;
+      background: rgba(17, 52, 76, 0.04);
+      border-color: rgba(17, 52, 76, 0.08);
+    }
+
+    html[data-theme="light"] .btn-primary {
+      box-shadow: 0 14px 24px rgba(17, 52, 76, 0.12);
     }
 
     html[data-theme="light"] .trust-pills li,
@@ -3413,7 +3535,8 @@ SITE_CSS = dedent(
     }
 
     html[data-theme="light"] .footer-meta,
-    html[data-theme="light"] .footer-item-label {
+    html[data-theme="light"] .footer-item-label,
+    html[data-theme="light"] .footer-company-name {
       color: color-mix(in srgb, var(--muted) 88%, #11344c 12%);
     }
 
@@ -3486,6 +3609,10 @@ SITE_CSS = dedent(
       gap: 10px;
     }
 
+    .footer-brand-heading {
+      align-items: flex-start;
+    }
+
     .footer-heading-icon {
       width: 36px;
       height: 36px;
@@ -3508,6 +3635,26 @@ SITE_CSS = dedent(
     .footer-stack {
       display: grid;
       gap: 4px;
+    }
+
+    .footer-brand-copy {
+      display: grid;
+      gap: 4px;
+    }
+
+    .footer-brand-name {
+      color: var(--ink);
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .footer-company-name {
+      color: color-mix(in srgb, var(--muted) 84%, white 16%);
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
     }
 
     .footer-lead {
@@ -3646,12 +3793,12 @@ SITE_CSS = dedent(
       }
 
       .brand {
-        align-items: flex-start;
+        align-items: center;
       }
 
-      .brand-logo {
-        width: 100%;
-        max-width: 132px;
+      .brand-mark {
+        width: 56px;
+        height: 56px;
       }
 
       .footer-block {
@@ -3678,6 +3825,10 @@ SITE_CSS = dedent(
         justify-content: space-between;
       }
 
+      .menu-link {
+        justify-content: center;
+      }
+
       .menu-list {
         position: static;
         margin-top: 10px;
@@ -3686,7 +3837,7 @@ SITE_CSS = dedent(
 
       .hero-visual-map {
         min-height: 420px;
-        padding-top: 70px;
+        padding-top: 26px;
       }
 
       .visual-grid {
@@ -3699,12 +3850,9 @@ SITE_CSS = dedent(
         display: none;
       }
 
-      .hero-badge-1 { top: 16px; left: 16px; }
-      .hero-badge-2 { top: 16px; right: 16px; }
-      .hero-badge-3 { top: auto; bottom: 86px; left: 14px; }
-      .hero-badge-4 { top: auto; bottom: 86px; right: 14px; }
-      .hero-badge-5 { left: 18px; bottom: 16px; }
-      .hero-badge-6 { right: 18px; bottom: 16px; }
+      .hero-legend {
+        margin-top: 16px;
+      }
 
       .solution-card,
       .benefit-card,
