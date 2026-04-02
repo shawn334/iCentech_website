@@ -1215,12 +1215,12 @@ def render_footer_content(lang):
     office_beijing = "北京办公室" if lang == "zh" else "Beijing Office"
     office_hk = "香港办公室" if lang == "zh" else "Hong Kong Office"
     beijing_address = (
-        "中国北京市东城区 DoBe WE International Hub wehome110"
+        "中国北京市东城区德必天坛园区B座wehome110室"
         if lang == "zh"
         else "wehome110, DoBe WE International Hub, Dongcheng, Beijing, PRC"
     )
     hong_kong_address = (
-        "中国香港上环德辅道西 32-36 号 Lee Fung Commercial Building 2 楼"
+        "中国香港上環德輔道西32-36號利豐商業大廈2樓"
         if lang == "zh"
         else "2/F, Lee Fung Commercial Building, 32-36 Des Voeux Rd W, Sheung Wan, Hong Kong"
     )
