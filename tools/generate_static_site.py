@@ -2648,7 +2648,7 @@ THEME_INIT_SCRIPT = dedent(
     """
     (() => {
       const savedTheme = window.localStorage.getItem("icentech-theme");
-      const theme = savedTheme === "light" ? "light" : "dark";
+      const theme = savedTheme === "dark" ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", theme);
     })();
     """
