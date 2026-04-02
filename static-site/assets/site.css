@@ -1072,14 +1072,15 @@ p {
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 16px;
 }
 
 .blog-card {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
-  gap: 18px;
-  padding: 18px;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 14px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(18, 39, 57, 0.94), rgba(10, 24, 36, 0.98));
@@ -1088,28 +1089,31 @@ p {
 
 .blog-card-media {
   display: block;
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--surface-alt);
-  min-height: 160px;
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+  align-self: start;
 }
 
 .blog-card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .blog-card-body {
   display: grid;
   align-content: start;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 
 .blog-card-date {
   color: var(--brand-blue-300);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-family: var(--font-mono);
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -1117,7 +1121,8 @@ p {
 }
 
 .blog-card-body h3 {
-  font-size: 1.4rem;
+  font-size: 1.16rem;
+  line-height: 1.1;
 }
 
 .blog-card-body h3 a,
@@ -1132,6 +1137,30 @@ p {
 .text-link {
   color: #d3f895;
   font-weight: 700;
+}
+
+.blog-card-body p {
+  font-size: 0.94rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-header-panel,
+.post-panel {
+  width: min(100%, 920px);
+  justify-self: center;
+}
+
+.post-header-panel {
+  padding: 34px;
+  display: grid;
+  gap: 14px;
+}
+
+.post-header-panel h1 {
+  max-width: none;
 }
 
 .timeline-list {
@@ -1995,7 +2024,8 @@ html[data-theme="light"] .social-link:focus-visible {
   }
 
   .blog-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 12px;
   }
 
   .hero-copy,
@@ -2051,12 +2081,18 @@ html[data-theme="light"] .social-link:focus-visible {
   }
 
   .blog-card-media {
-    min-height: 180px;
+    min-height: 0;
+    border-radius: 12px;
   }
 
   .blog-card-body h3 {
-    font-size: 1.18rem;
+    font-size: 1.02rem;
     line-height: 1.08;
+  }
+
+  .blog-card-body p {
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2;
   }
 
   .timeline-list li {
@@ -2106,6 +2142,12 @@ html[data-theme="light"] .social-link:focus-visible {
 
   .menu-panel {
     grid-template-columns: 1fr;
+  }
+
+  .blog-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 10px;
+    padding: 14px;
   }
 
   .visual-step-strip {

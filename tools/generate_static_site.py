@@ -1537,7 +1537,7 @@ def render_blog_cards(lang, posts):
             f"""
             <article class="blog-card">
               <a class="blog-card-media" href="{blog_href(lang, post['slug'])}">
-                <img src="{html.escape(post.get('image_url', ''))}" alt="{html.escape(post['title'])}">
+                <img src="{html.escape(post.get('image_url', ''))}" alt="{html.escape(post['title'])}" loading="lazy">
               </a>
               <div class="blog-card-body">
                 <div class="blog-card-meta">
@@ -1705,12 +1705,10 @@ def render_blog_post_page(page, post, lang, data):
     title = post["title"]
     subtitle = post.get("subtitle", "")
     excerpt = post.get("excerpt") or excerpt_from_body(post.get("body_html", ""))
-    tags = "".join(f'<li>{html.escape(tag)}</li>' for tag in post.get("tags", []))
-    tag_html = f'<ul class="tag-list">{tags}</ul>' if tags else ""
     related_cards = "".join(
         f"""
         <a class="service-card related-card" href="{blog_href(lang, item['slug'])}">
-          <span class="card-kicker">{'最新文章' if lang == 'zh' else 'Latest Post'}</span>
+          <span class="card-kicker">{'相关文章' if lang == 'zh' else 'Related Post'}</span>
           <h3>{html.escape(item['title'])}</h3>
           <p>{html.escape(item.get('excerpt') or excerpt_from_body(item.get('body_html', '')))}</p>
         </a>
@@ -1718,42 +1716,25 @@ def render_blog_post_page(page, post, lang, data):
         for item in sibling_posts
     )
     return f"""
-    <section class="hero hero-page hero-blog-post">
-      <div class="hero-copy">
+    <section class="section-shell">
+      <article class="panel post-header-panel">
         <span class="eyebrow">{'文章' if lang == 'zh' else 'Article'}</span>
         <h1>{html.escape(title)}</h1>
         <p class="lead">{html.escape(subtitle or excerpt)}</p>
         <div class="hero-meta-strip">
           <span class="meta-pill">{html.escape(post['date'])}</span>
-          <span class="meta-pill">{'中文内容' if detect_language(title) == 'zh' else 'English content'}</span>
-          <span class="meta-pill">{'新站内发布' if lang == 'zh' else 'Published in this site'}</span>
+          <span class="meta-pill">iCentech Blog</span>
         </div>
-      </div>
-      {render_page_visual(page, get_page_detail(page, lang), lang, image_url=post.get('image_url') or asset_href(f"{page_asset_basename(page['slug'])}-{lang}.svg"), chips=post.get('tags') or [post.get('date', ''), 'iCentech'], label='文章预览' if lang == 'zh' else 'Article Preview')}
+      </article>
     </section>
 
-    <section class="section-shell two-col-shell">
+    <section class="section-shell">
       <article class="panel post-panel">
         <span class="section-kicker">{'正文' if lang == 'zh' else 'Article'}</span>
         <div class="post-content">
           {post.get('body_html_by_lang', {}).get(lang, post.get('body_html', ''))}
         </div>
       </article>
-      <aside class="stack-grid">
-        <article class="panel soft-panel">
-          <span class="section-kicker">{'摘要' if lang == 'zh' else 'Summary'}</span>
-          <h2>{'文章摘要' if lang == 'zh' else 'Quick Summary'}</h2>
-          <p>{html.escape(excerpt)}</p>
-          {tag_html}
-        </article>
-        <article class="panel ai-panel">
-          <span class="section-kicker">{'管理' if lang == 'zh' else 'Management'}</span>
-          <h2>{'仓库管理' if lang == 'zh' else 'Repo Managed'}</h2>
-          <p>{html.escape('正文文件、封面图和文章清单都已经本地化，后续可以直接在 GitHub 里维护。'
-          if lang == 'zh' else
-          'The body file, cover image, and post manifest now live in the repo, so future edits can happen directly in GitHub.')}</p>
-        </article>
-      </aside>
     </section>
 
     <section class="section-shell">
@@ -3707,14 +3688,15 @@ SITE_CSS = dedent(
     .blog-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      gap: 16px;
     }
 
     .blog-card {
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 18px;
-      padding: 18px;
+      grid-template-columns: 132px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px;
       border-radius: var(--radius-lg);
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(18, 39, 57, 0.94), rgba(10, 24, 36, 0.98));
@@ -3723,28 +3705,31 @@ SITE_CSS = dedent(
 
     .blog-card-media {
       display: block;
-      border-radius: 18px;
+      border-radius: 14px;
       overflow: hidden;
       background: var(--surface-alt);
-      min-height: 160px;
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+      align-self: start;
     }
 
     .blog-card-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .blog-card-body {
       display: grid;
       align-content: start;
-      gap: 10px;
+      gap: 8px;
       min-width: 0;
     }
 
     .blog-card-date {
       color: var(--brand-blue-300);
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       font-family: var(--font-mono);
       font-weight: 600;
       letter-spacing: 0.05em;
@@ -3752,7 +3737,8 @@ SITE_CSS = dedent(
     }
 
     .blog-card-body h3 {
-      font-size: 1.4rem;
+      font-size: 1.16rem;
+      line-height: 1.1;
     }
 
     .blog-card-body h3 a,
@@ -3767,6 +3753,30 @@ SITE_CSS = dedent(
     .text-link {
       color: #d3f895;
       font-weight: 700;
+    }
+
+    .blog-card-body p {
+      font-size: 0.94rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .post-header-panel,
+    .post-panel {
+      width: min(100%, 920px);
+      justify-self: center;
+    }
+
+    .post-header-panel {
+      padding: 34px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .post-header-panel h1 {
+      max-width: none;
     }
 
     .timeline-list {
@@ -4630,7 +4640,8 @@ SITE_CSS = dedent(
       }
 
       .blog-card {
-        grid-template-columns: 1fr;
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: 12px;
       }
 
       .hero-copy,
@@ -4686,12 +4697,18 @@ SITE_CSS = dedent(
       }
 
       .blog-card-media {
-        min-height: 180px;
+        min-height: 0;
+        border-radius: 12px;
       }
 
       .blog-card-body h3 {
-        font-size: 1.18rem;
+        font-size: 1.02rem;
         line-height: 1.08;
+      }
+
+      .blog-card-body p {
+        font-size: 0.9rem;
+        -webkit-line-clamp: 2;
       }
 
       .timeline-list li {
@@ -4741,6 +4758,12 @@ SITE_CSS = dedent(
 
       .menu-panel {
         grid-template-columns: 1fr;
+      }
+
+      .blog-card {
+        grid-template-columns: 82px minmax(0, 1fr);
+        gap: 10px;
+        padding: 14px;
       }
 
       .visual-step-strip {
