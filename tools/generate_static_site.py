@@ -41,6 +41,21 @@ LEGACY_ROUTE_ALIASES = {
     ),
 }
 
+MONTH_NAMES = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
+
 BRAND_TOKENS = {
     "brand_blue_700": "#0c79d6",
     "brand_blue_500": "#0596ef",
@@ -1028,6 +1043,42 @@ def filter_blog_posts(posts, lang):
     return [post for post in posts if blog_post_language(post) == lang]
 
 
+def parse_post_date(value):
+    raw = (value or "").strip()
+    if not raw:
+        return None
+    for pattern in (
+        r"^(?P<year>\d{4})年(?P<month>\d{1,2})月(?P<day>\d{1,2})日$",
+        r"^(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})$",
+        r"^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})$",
+    ):
+        match = re.match(pattern, raw)
+        if match:
+            year = int(match.group("year"))
+            month = int(match.group("month"))
+            day = int(match.group("day"))
+            return year, month, day
+    return None
+
+
+def format_post_date(value, lang):
+    parsed = parse_post_date(value)
+    if not parsed:
+        return value
+    year, month, day = parsed
+    if lang == "zh":
+        return f"{year}年{month}月{day}日"
+    return f"{MONTH_NAMES[month - 1]} {day}, {year}"
+
+
+def iso_post_date(value):
+    parsed = parse_post_date(value)
+    if not parsed:
+        return value
+    year, month, day = parsed
+    return f"{year:04d}-{month:02d}-{day:02d}"
+
+
 def blog_href(lang, slug):
     prefix = "zh/blog" if lang == "zh" else "en/blog"
     return site_path(f"{prefix}/{slug}.html")
@@ -1533,6 +1584,7 @@ def render_blog_cards(lang, posts):
     cards = []
     for post in posts:
         excerpt = post.get("excerpt") or excerpt_from_body(post.get("body_html", ""))
+        display_date = format_post_date(post.get("date", ""), lang)
         cards.append(
             f"""
             <article class="blog-card">
@@ -1541,7 +1593,7 @@ def render_blog_cards(lang, posts):
               </a>
               <div class="blog-card-body">
                 <div class="blog-card-meta">
-                  <p class="blog-card-date">{html.escape(post['date'])}</p>
+                  <p class="blog-card-date">{html.escape(display_date)}</p>
                 </div>
                 <h3><a href="{blog_href(lang, post['slug'])}">{html.escape(post['title'])}</a></h3>
                 <p>{html.escape(excerpt)}</p>
@@ -1705,6 +1757,7 @@ def render_blog_post_page(page, post, lang, data):
     title = post["title"]
     subtitle = post.get("subtitle", "")
     excerpt = post.get("excerpt") or excerpt_from_body(post.get("body_html", ""))
+    display_date = format_post_date(post.get("date", ""), lang)
     related_cards = "".join(
         f"""
         <a class="service-card related-card" href="{blog_href(lang, item['slug'])}">
@@ -1722,7 +1775,7 @@ def render_blog_post_page(page, post, lang, data):
         <h1>{html.escape(title)}</h1>
         <p class="lead">{html.escape(subtitle or excerpt)}</p>
         <div class="hero-meta-strip">
-          <span class="meta-pill">{html.escape(post['date'])}</span>
+          <span class="meta-pill">{html.escape(display_date)}</span>
           <span class="meta-pill">iCentech Blog</span>
         </div>
       </article>
@@ -1843,7 +1896,7 @@ def build_blog_schema(data, post, lang):
             "headline": post["title"],
             "description": post.get("excerpt") or excerpt_from_body(post.get("body_html", "")),
             "image": absolute_asset_url(data, post.get("image", "")),
-            "datePublished": post.get("date", ""),
+            "datePublished": iso_post_date(post.get("date", "")),
             "url": absolute_site_url(data, blog_href(lang, post["slug"])),
             "publisher": {"@type": "Organization", "name": "iCentech"},
         },
@@ -3737,7 +3790,7 @@ SITE_CSS = dedent(
     }
 
     .blog-card-body h3 {
-      font-size: 1.16rem;
+      font-size: 1.05rem;
       line-height: 1.1;
     }
 
@@ -3777,6 +3830,8 @@ SITE_CSS = dedent(
 
     .post-header-panel h1 {
       max-width: none;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.04;
     }
 
     .timeline-list {
@@ -3921,8 +3976,16 @@ SITE_CSS = dedent(
 
     .post-content h2,
     .post-content h3 {
-      margin: 22px 0 8px;
-      line-height: 1.06;
+      margin: 20px 0 8px;
+      line-height: 1.1;
+    }
+
+    .post-content h2 {
+      font-size: clamp(1.45rem, 2.6vw, 2rem);
+    }
+
+    .post-content h3 {
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
     }
 
     .post-content p,
@@ -4702,7 +4765,7 @@ SITE_CSS = dedent(
       }
 
       .blog-card-body h3 {
-        font-size: 1.02rem;
+        font-size: 0.98rem;
         line-height: 1.08;
       }
 
@@ -4764,6 +4827,18 @@ SITE_CSS = dedent(
         grid-template-columns: 82px minmax(0, 1fr);
         gap: 10px;
         padding: 14px;
+      }
+
+      .post-header-panel h1 {
+        font-size: clamp(1.75rem, 9vw, 2.25rem);
+      }
+
+      .post-content h2 {
+        font-size: 1.28rem;
+      }
+
+      .post-content h3 {
+        font-size: 1.08rem;
       }
 
       .visual-step-strip {

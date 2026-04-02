@@ -1121,7 +1121,7 @@ p {
 }
 
 .blog-card-body h3 {
-  font-size: 1.16rem;
+  font-size: 1.05rem;
   line-height: 1.1;
 }
 
@@ -1161,6 +1161,8 @@ p {
 
 .post-header-panel h1 {
   max-width: none;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.04;
 }
 
 .timeline-list {
@@ -1305,8 +1307,16 @@ p {
 
 .post-content h2,
 .post-content h3 {
-  margin: 22px 0 8px;
-  line-height: 1.06;
+  margin: 20px 0 8px;
+  line-height: 1.1;
+}
+
+.post-content h2 {
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+}
+
+.post-content h3 {
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
 }
 
 .post-content p,
@@ -2086,7 +2096,7 @@ html[data-theme="light"] .social-link:focus-visible {
   }
 
   .blog-card-body h3 {
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     line-height: 1.08;
   }
 
@@ -2148,6 +2158,18 @@ html[data-theme="light"] .social-link:focus-visible {
     grid-template-columns: 82px minmax(0, 1fr);
     gap: 10px;
     padding: 14px;
+  }
+
+  .post-header-panel h1 {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+
+  .post-content h2 {
+    font-size: 1.28rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.08rem;
   }
 
   .visual-step-strip {
