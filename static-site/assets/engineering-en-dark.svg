@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#112637"/>
+      <stop offset="55%" stop-color="#0d1e2c"/>
+      <stop offset="100%" stop-color="#08131c"/>
+    </linearGradient>
+    <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#0d8de5"/>
+      <stop offset="100%" stop-color="#095ea7"/>
+    </linearGradient>
+    <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#63a60b"/>
+      <stop offset="100%" stop-color="#63a60b"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d8de5"/>
+      <stop offset="100%" stop-color="#63a60b"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02090f" flood-opacity="0.46"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.55">
+    <circle cx="1420" cy="110" r="210" fill="rgba(26,62,88,0.38)"/>
+    <circle cx="190" cy="770" r="250" fill="rgba(38,72,34,0.34)"/>
+  </g>
+  <g filter="url(#shadowSoft)">
+    <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(8,19,28,0.72)"/>
+  </g>
+  <rect x="176" y="156" width="1248" height="588" rx="42" fill="rgba(255,255,255,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="240" y="220" width="360" height="460" rx="32" fill="rgba(15,34,49,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="652" y="240" width="320" height="174" rx="28" fill="rgba(14,40,60,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="652" y="448" width="320" height="174" rx="28" fill="rgba(28,57,29,0.9)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="1018" y="220" width="332" height="402" rx="32" fill="rgba(18,40,58,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><path d="M612 320h30c40 0 40 34 80 34h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/><path d="M612 542h30c40 0 40-34 80-34h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/><path d="M986 354h40c34 0 34 52 68 52h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/><path d="M986 534h40c34 0 34-52 68-52h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/><rect x="294" y="286" width="244" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><circle cx="274" cy="295" r="10" fill="url(#primaryOrb)"/><rect x="294" y="342" width="214" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><circle cx="274" cy="351" r="10" fill="url(#primaryOrb)"/><rect x="294" y="398" width="228" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><circle cx="274" cy="407" r="10" fill="url(#primaryOrb)"/><rect x="294" y="454" width="210" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><circle cx="274" cy="463" r="10" fill="url(#primaryOrb)"/><rect x="294" y="510" width="236" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><circle cx="274" cy="519" r="10" fill="url(#primaryOrb)"/><circle cx="730" cy="330" r="22" fill="url(#accentOrb)"/><circle cx="730" cy="538" r="22" fill="url(#accentOrb)"/><circle cx="1120" cy="386" r="22" fill="url(#accentOrb)"/><circle cx="1120" cy="494" r="22" fill="url(#accentOrb)"/><rect x="1072" y="294" width="198" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="1072" y="348" width="160" height="18" rx="9" fill="rgba(5,150,239,0.18)"/><rect x="1072" y="402" width="224" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="1072" y="456" width="190" height="18" rx="9" fill="rgba(5,150,239,0.18)"/><rect x="1072" y="510" width="216" height="18" rx="9" fill="rgba(168,195,216,0.16)"/>
+</svg>

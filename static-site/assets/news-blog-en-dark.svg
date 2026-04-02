@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#112637"/>
+      <stop offset="55%" stop-color="#0d1e2c"/>
+      <stop offset="100%" stop-color="#08131c"/>
+    </linearGradient>
+    <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#2aa2ee"/>
+      <stop offset="100%" stop-color="#0b79d1"/>
+    </linearGradient>
+    <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8bce2c"/>
+      <stop offset="100%" stop-color="#63a60b"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2aa2ee"/>
+      <stop offset="100%" stop-color="#8bce2c"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02090f" flood-opacity="0.46"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.55">
+    <circle cx="1420" cy="110" r="210" fill="rgba(26,62,88,0.38)"/>
+    <circle cx="190" cy="770" r="250" fill="rgba(38,72,34,0.34)"/>
+  </g>
+  <g filter="url(#shadowSoft)">
+    <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(8,19,28,0.72)"/>
+  </g>
+  <rect x="178" y="156" width="1244" height="588" rx="42" fill="rgba(255,255,255,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="238" y="214" width="338" height="470" rx="32" fill="rgba(18,40,58,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="238" y="214" width="338" height="188" rx="32" fill="url(#primaryOrb)" opacity="0.88"/><rect x="276" y="444" width="246" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="276" y="482" width="206" height="14" rx="7" fill="rgba(5,150,239,0.18)"/><rect x="276" y="518" width="226" height="14" rx="7" fill="rgba(168,195,216,0.14)"/><rect x="276" y="574" width="124" height="32" rx="16" fill="rgba(28,57,29,0.9)"/><rect x="630" y="214" width="338" height="470" rx="32" fill="rgba(18,40,58,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="630" y="214" width="338" height="188" rx="32" fill="url(#primaryOrb)" opacity="0.88"/><rect x="668" y="444" width="246" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="668" y="482" width="206" height="14" rx="7" fill="rgba(5,150,239,0.18)"/><rect x="668" y="518" width="226" height="14" rx="7" fill="rgba(168,195,216,0.14)"/><rect x="668" y="574" width="124" height="32" rx="16" fill="rgba(28,57,29,0.9)"/><rect x="1022" y="214" width="338" height="470" rx="32" fill="rgba(18,40,58,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="1022" y="214" width="338" height="188" rx="32" fill="url(#primaryOrb)" opacity="0.88"/><rect x="1060" y="444" width="246" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="1060" y="482" width="206" height="14" rx="7" fill="rgba(5,150,239,0.18)"/><rect x="1060" y="518" width="226" height="14" rx="7" fill="rgba(168,195,216,0.14)"/><rect x="1060" y="574" width="124" height="32" rx="16" fill="rgba(28,57,29,0.9)"/>
+</svg>

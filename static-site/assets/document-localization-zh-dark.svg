@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#112637"/>
+      <stop offset="55%" stop-color="#0d1e2c"/>
+      <stop offset="100%" stop-color="#08131c"/>
+    </linearGradient>
+    <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#37a1f2"/>
+      <stop offset="100%" stop-color="#0b78d1"/>
+    </linearGradient>
+    <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#75bf19"/>
+      <stop offset="100%" stop-color="#63a60b"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#37a1f2"/>
+      <stop offset="100%" stop-color="#75bf19"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02090f" flood-opacity="0.46"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.55">
+    <circle cx="1420" cy="110" r="210" fill="rgba(26,62,88,0.38)"/>
+    <circle cx="190" cy="770" r="250" fill="rgba(38,72,34,0.34)"/>
+  </g>
+  <g filter="url(#shadowSoft)">
+    <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(8,19,28,0.72)"/>
+  </g>
+  <rect x="238" y="154" width="520" height="578" rx="42" fill="rgba(255,255,255,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="312" y="214" width="520" height="578" rx="42" fill="rgba(22,44,62,0.84)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="886" y="202" width="464" height="466" rx="36" fill="rgba(15,34,49,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="402" y="274" width="340" height="38" rx="18" fill="url(#primaryOrb)" opacity="0.9"/><circle cx="640" cy="652" r="56" fill="none" stroke="url(#line)" stroke-width="14"/><path d="M616 652l18 18 34-40" fill="none" stroke="url(#line)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><rect x="970" y="264" width="296" height="116" rx="26" fill="rgba(232,247,255,0.96)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="970" y="414" width="296" height="116" rx="26" fill="rgba(28,57,29,0.9)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="970" y="564" width="296" height="72" rx="24" fill="rgba(16,36,52,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="402" y="350" width="268" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="402" y="404" width="310" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="402" y="458" width="288" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="402" y="512" width="320" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="402" y="566" width="298" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="402" y="620" width="272" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><circle cx="1020" cy="300" r="18" fill="url(#primaryOrb)"/><rect x="1054" y="290" width="146" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="1054" y="318" width="118" height="12" rx="6" fill="rgba(5,150,239,0.18)"/><circle cx="1020" cy="450" r="18" fill="url(#primaryOrb)"/><rect x="1054" y="440" width="146" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="1054" y="468" width="118" height="12" rx="6" fill="rgba(5,150,239,0.18)"/><circle cx="1020" cy="590" r="18" fill="url(#primaryOrb)"/><rect x="1054" y="580" width="146" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="1054" y="608" width="118" height="12" rx="6" fill="rgba(5,150,239,0.18)"/>
+</svg>

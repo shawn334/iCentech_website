@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#112637"/>
+      <stop offset="55%" stop-color="#0d1e2c"/>
+      <stop offset="100%" stop-color="#08131c"/>
+    </linearGradient>
+    <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#2e8de4"/>
+      <stop offset="100%" stop-color="#0c79d6"/>
+    </linearGradient>
+    <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78c515"/>
+      <stop offset="100%" stop-color="#63a60b"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2e8de4"/>
+      <stop offset="100%" stop-color="#78c515"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02090f" flood-opacity="0.46"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.55">
+    <circle cx="1420" cy="110" r="210" fill="rgba(26,62,88,0.38)"/>
+    <circle cx="190" cy="770" r="250" fill="rgba(38,72,34,0.34)"/>
+  </g>
+  <g filter="url(#shadowSoft)">
+    <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(8,19,28,0.72)"/>
+  </g>
+  <rect x="168" y="156" width="470" height="584" rx="38" fill="rgba(255,255,255,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="700" y="204" width="310" height="484" rx="36" fill="rgba(23,44,62,0.88)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="1058" y="198" width="332" height="220" rx="30" fill="rgba(17,37,54,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="1040" y="474" width="356" height="228" rx="34" fill="rgba(246,251,254,0.96)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><path d="M652 422h92" fill="none" stroke="url(#line)" stroke-width="18" stroke-linecap="round"/><path d="M718 388l54 34-54 34" fill="none" stroke="url(#line)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><circle cx="1224" cy="308" r="72" fill="url(#primaryOrb)"/><circle cx="1224" cy="308" r="34" fill="rgba(20,39,56,0.9)"/><circle cx="1288" cy="644" r="48" fill="url(#accentOrb)" opacity="0.92"/><rect x="222" y="226" width="250" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="222" y="274" width="182" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="222" y="322" width="224" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="222" y="370" width="200" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="222" y="418" width="248" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="222" y="466" width="176" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="222" y="514" width="208" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="432" y="226" width="188" height="16" rx="8" fill="rgba(5,150,239,0.18)"/><rect x="432" y="274" width="146" height="16" rx="8" fill="rgba(5,150,239,0.18)"/><rect x="432" y="322" width="168" height="16" rx="8" fill="rgba(5,150,239,0.18)"/><rect x="432" y="370" width="150" height="16" rx="8" fill="rgba(5,150,239,0.18)"/><rect x="432" y="418" width="194" height="16" rx="8" fill="rgba(5,150,239,0.18)"/><rect x="432" y="466" width="136" height="16" rx="8" fill="rgba(5,150,239,0.18)"/><rect x="760" y="286" width="180" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="760" y="314" width="144" height="12" rx="6" fill="rgba(120,197,21,0.18)"/><rect x="760" y="344" width="136" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="760" y="372" width="100" height="12" rx="6" fill="rgba(120,197,21,0.18)"/><rect x="760" y="402" width="160" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="760" y="430" width="124" height="12" rx="6" fill="rgba(120,197,21,0.18)"/><rect x="760" y="460" width="126" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="760" y="488" width="90" height="12" rx="6" fill="rgba(120,197,21,0.18)"/><rect x="1138" y="468" width="210" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="1138" y="506" width="246" height="16" rx="9" fill="rgba(5,150,239,0.18)"/><rect x="1138" y="542" width="196" height="16" rx="9" fill="rgba(168,195,216,0.14)"/><rect x="1138" y="584" width="224" height="16" rx="9" fill="rgba(120,197,21,0.18)"/>
+</svg>

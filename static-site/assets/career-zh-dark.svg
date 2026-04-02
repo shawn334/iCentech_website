@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#112637"/>
+      <stop offset="55%" stop-color="#0d1e2c"/>
+      <stop offset="100%" stop-color="#08131c"/>
+    </linearGradient>
+    <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#0f97e3"/>
+      <stop offset="100%" stop-color="#0b71c3"/>
+    </linearGradient>
+    <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7cca1a"/>
+      <stop offset="100%" stop-color="#63a60b"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f97e3"/>
+      <stop offset="100%" stop-color="#7cca1a"/>
+    </linearGradient>
+    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#02090f" flood-opacity="0.46"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.55">
+    <circle cx="1420" cy="110" r="210" fill="rgba(26,62,88,0.38)"/>
+    <circle cx="190" cy="770" r="250" fill="rgba(38,72,34,0.34)"/>
+  </g>
+  <g filter="url(#shadowSoft)">
+    <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(8,19,28,0.72)"/>
+  </g>
+  <rect x="190" y="156" width="560" height="588" rx="42" fill="rgba(18,40,58,0.94)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><rect x="806" y="156" width="606" height="588" rx="42" fill="rgba(255,255,255,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><circle cx="470" cy="330" r="104" fill="url(#primaryOrb)" opacity="0.92"/><circle cx="470" cy="300" r="42" fill="rgba(255,255,255,0.92)"/><path d="M394 434c42-42 110-42 152 0" fill="none" stroke="rgba(168,195,216,0.2)" stroke-width="22" stroke-linecap="round"/><rect x="356" y="516" width="228" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="356" y="560" width="188" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="356" y="602" width="244" height="16" rx="8" fill="rgba(168,195,216,0.16)"/><rect x="866" y="248" width="486" height="104" rx="26" fill="rgba(16,36,52,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><circle cx="926" cy="300" r="24" fill="url(#accentOrb)"/><rect x="972" y="284" width="218" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="972" y="312" width="174" height="12" rx="6" fill="rgba(5,150,239,0.18)"/><rect x="866" y="396" width="486" height="104" rx="26" fill="rgba(28,57,29,0.9)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><circle cx="926" cy="448" r="24" fill="url(#accentOrb)"/><rect x="972" y="432" width="218" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="972" y="460" width="174" height="12" rx="6" fill="rgba(5,150,239,0.18)"/><rect x="866" y="544" width="486" height="104" rx="26" fill="rgba(16,36,52,0.92)" stroke="rgba(168,195,216,0.1)" stroke-width="2"/><circle cx="926" cy="596" r="24" fill="url(#accentOrb)"/><rect x="972" y="580" width="218" height="18" rx="9" fill="rgba(168,195,216,0.16)"/><rect x="972" y="608" width="174" height="12" rx="6" fill="rgba(5,150,239,0.18)"/>
+</svg>

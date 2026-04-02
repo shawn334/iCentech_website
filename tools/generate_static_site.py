@@ -1383,6 +1383,7 @@ def render_pill_list(items):
 def render_page_visual(page, detail, lang, image_url=None, chips=None, label=None):
     legend_title = label or ("Quick View" if lang == "en" else "快速查看")
     preview_src = image_url or asset_href(f"{page_asset_basename(page['slug'])}-{lang}.svg")
+    dark_preview_src = "" if image_url else asset_href(f"{page_asset_basename(page['slug'])}-{lang}-dark.svg")
     legend_items = chips or detail.get("outputs") or detail.get("highlights") or []
     workflow_items = detail.get("workflow", [])[:4]
     workflow_html = "".join(
@@ -1395,10 +1396,16 @@ def render_page_visual(page, detail, lang, image_url=None, chips=None, label=Non
         for index, item in enumerate(workflow_items)
     )
     chips_html = "".join(f"<li>{html.escape(chip_text(item))}</li>" for item in legend_items[:4])
+    image_attrs = f'src="{preview_src}" alt=""'
+    if dark_preview_src:
+        image_attrs += (
+            f' data-theme-visual="true" data-light-src="{preview_src}"'
+            f' data-dark-src="{dark_preview_src}"'
+        )
     return f"""
     <div class="hero-visual hero-visual-card">
       <div class="hero-image-shell">
-        <img class="hero-image page-visual-image" src="{preview_src}" alt="">
+        <img class="hero-image page-visual-image" {image_attrs}>
       </div>
       <ol class="visual-step-strip">
         {workflow_html}
@@ -2486,11 +2493,45 @@ SVG_SCENE_RENDERERS = {
 }
 
 
-def render_svg(page, lang):
+def apply_dark_svg_palette(markup, theme):
+    replacements = [
+        (f'<stop offset="0%" stop-color="{theme["soft"]}"/>', '<stop offset="0%" stop-color="#112637"/>'),
+        ('<stop offset="55%" stop-color="#ffffff"/>', '<stop offset="55%" stop-color="#0d1e2c"/>'),
+        ('<stop offset="100%" stop-color="#f4fbff"/>', '<stop offset="100%" stop-color="#08131c"/>'),
+        ('flood-color="#98b7cc" flood-opacity="0.18"', 'flood-color="#02090f" flood-opacity="0.46"'),
+        ('fill="#d8efff"', 'fill="rgba(26,62,88,0.38)"'),
+        ('fill="#ebf7da"', 'fill="rgba(38,72,34,0.34)"'),
+        ('rgba(255,255,255,0.98)', 'rgba(18,40,58,0.94)'),
+        ('rgba(255,255,255,0.96)', 'rgba(16,36,52,0.92)'),
+        ('rgba(255,255,255,0.94)', 'rgba(18,37,53,0.9)'),
+        ('rgba(255,255,255,0.9)', 'rgba(20,39,56,0.9)'),
+        ('rgba(255,255,255,0.88)', 'rgba(23,44,62,0.88)'),
+        ('rgba(255,255,255,0.84)', 'rgba(22,44,62,0.84)'),
+        ('rgba(255,255,255,0.42)', 'rgba(8,19,28,0.72)'),
+        ('rgba(247,251,253,0.96)', 'rgba(15,34,49,0.94)'),
+        ('rgba(244,250,253,0.9)', 'rgba(17,35,50,0.9)'),
+        ('rgba(242,250,255,0.94)', 'rgba(17,37,54,0.92)'),
+        ('rgba(241,248,252,0.96)', 'rgba(17,39,56,0.92)'),
+        ('rgba(236,248,255,0.96)', 'rgba(14,40,60,0.92)'),
+        ('rgba(236,248,255,0.9)', 'rgba(14,40,60,0.86)'),
+        ('rgba(241,250,233,0.96)', 'rgba(28,57,29,0.9)'),
+        ('rgba(17,52,76,0.18)', 'rgba(168,195,216,0.2)'),
+        ('rgba(17,52,76,0.16)', 'rgba(168,195,216,0.18)'),
+        ('rgba(17,52,76,0.14)', 'rgba(168,195,216,0.16)'),
+        ('rgba(17,52,76,0.12)', 'rgba(168,195,216,0.14)'),
+        ('rgba(17,52,76,0.1)', 'rgba(168,195,216,0.12)'),
+        ('rgba(17,52,76,0.08)', 'rgba(168,195,216,0.1)'),
+    ]
+    for old, new in replacements:
+        markup = markup.replace(old, new)
+    return markup
+
+
+def render_svg(page, lang, mode="light"):
     theme = get_theme(page)
     scene_key = SVG_SCENE_MAP.get(page["slug"], "company")
     scene = SVG_SCENE_RENDERERS[scene_key](theme)
-    return dedent(
+    markup = dedent(
         f"""\
         <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
           <defs>
@@ -2527,6 +2568,9 @@ def render_svg(page, lang):
         </svg>
         """
     )
+    if mode == "dark":
+        return apply_dark_svg_palette(markup, theme)
+    return markup
 
 
 NAV_SCRIPT = dedent(
@@ -2622,10 +2666,23 @@ THEME_INIT_SCRIPT = dedent(
 THEME_SCRIPT = dedent(
     """
     (() => {
-      const button = document.querySelector("[data-theme-toggle]");
-      if (!button) return;
-
       const root = document.documentElement;
+      const button = document.querySelector("[data-theme-toggle]");
+      const syncThemeVisuals = () => {
+        const theme = root.getAttribute("data-theme") === "light" ? "light" : "dark";
+        document.querySelectorAll("[data-theme-visual]").forEach((image) => {
+          const nextSrc = theme === "light" ? image.getAttribute("data-light-src") : image.getAttribute("data-dark-src");
+          if (nextSrc && image.getAttribute("src") !== nextSrc) {
+            image.setAttribute("src", nextSrc);
+          }
+        });
+      };
+
+      if (!button) {
+        syncThemeVisuals();
+        return;
+      }
+
       const lightLabel = button.getAttribute("data-label-light") || "Switch To Light";
       const darkLabel = button.getAttribute("data-label-dark") || "Switch To Dark";
 
@@ -2639,9 +2696,11 @@ THEME_SCRIPT = dedent(
         const nextTheme = root.getAttribute("data-theme") === "light" ? "dark" : "light";
         root.setAttribute("data-theme", nextTheme);
         window.localStorage.setItem("icentech-theme", nextTheme);
+        syncThemeVisuals();
         updateButton();
       });
 
+      syncThemeVisuals();
       updateButton();
     })();
     """
@@ -4631,6 +4690,8 @@ def write_brand_assets(data):
         for lang in ("en", "zh"):
             svg_name = f"{page_asset_basename(page['slug'])}-{lang}.svg"
             (ASSETS_DIR / svg_name).write_text(render_svg(page, lang), encoding="utf-8")
+            dark_svg_name = f"{page_asset_basename(page['slug'])}-{lang}-dark.svg"
+            (ASSETS_DIR / dark_svg_name).write_text(render_svg(page, lang, "dark"), encoding="utf-8")
 
 
 def main():
