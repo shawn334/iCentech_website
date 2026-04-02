@@ -1092,19 +1092,11 @@ def render_nav(page, lang):
             links.append(
                 f'<a class="menu-item{active}" href="{page_href(lang, item["slug"])}">{html.escape(label)}</a>'
             )
-        aria_label = (
-            f"打开{group_title}菜单"
-            if lang == "zh"
-            else f"Open {group_title} menu"
-        )
         active = " is-active" if group_active else ""
         items.append(
             f"""
             <div class="menu-group" data-menu-group>
-              <div class="menu-trigger">
-                <a class="menu-title menu-link{active}" href="{page_href(lang, group_slug)}">{html.escape(group_title)}</a>
-                <button class="menu-toggle" type="button" aria-expanded="false" aria-label="{html.escape(aria_label)}"></button>
-              </div>
+              <a class="menu-title menu-link{active}" href="{page_href(lang, group_slug)}">{html.escape(group_title)}</a>
               <div class="menu-list" hidden>
                 {''.join(links)}
               </div>
@@ -1251,11 +1243,11 @@ def render_footer_content(lang):
         </div>
         <div class="footer-stack">
           <p class="footer-item-label">{office_beijing}</p>
-          <p class="footer-item-copy">{beijing_address}</p>
+          <p class="footer-item-copy footer-address">{beijing_address}</p>
         </div>
         <div class="footer-stack">
           <p class="footer-item-label">{office_hk}</p>
-          <p class="footer-item-copy">{hong_kong_address}</p>
+          <p class="footer-item-copy footer-address">{hong_kong_address}</p>
         </div>
       </div>
       <div class="footer-block">
@@ -2507,6 +2499,7 @@ def apply_dark_svg_palette(markup, theme):
         ('rgba(255,255,255,0.9)', 'rgba(20,39,56,0.9)'),
         ('rgba(255,255,255,0.88)', 'rgba(23,44,62,0.88)'),
         ('rgba(255,255,255,0.84)', 'rgba(22,44,62,0.84)'),
+        ('rgba(255,255,255,0.72)', 'rgba(168,195,216,0.14)'),
         ('rgba(255,255,255,0.42)', 'rgba(8,19,28,0.72)'),
         ('rgba(247,251,253,0.96)', 'rgba(15,34,49,0.94)'),
         ('rgba(244,250,253,0.9)', 'rgba(17,35,50,0.9)'),
@@ -2524,6 +2517,18 @@ def apply_dark_svg_palette(markup, theme):
     ]
     for old, new in replacements:
         markup = markup.replace(old, new)
+    rect_fill_replacements = {
+        "rgba(255,255,255,0.92)": "rgba(18,40,58,0.94)",
+        "rgba(246,251,254,0.96)": "rgba(17,35,50,0.92)",
+        "rgba(236,246,252,0.96)": "rgba(15,38,56,0.92)",
+        "rgba(232,247,255,0.96)": "rgba(15,40,58,0.92)",
+    }
+    for old, new in rect_fill_replacements.items():
+        markup = re.sub(
+            rf'(<rect\b[^>]*fill="){re.escape(old)}(")',
+            rf'\1{new}\2',
+            markup,
+        )
     return markup
 
 
@@ -2591,9 +2596,7 @@ NAV_SCRIPT = dedent(
       const closeGroup = (group) => {
         clearCloseTimer(group);
         group.classList.remove("is-open");
-        const button = group.querySelector(".menu-toggle");
         const list = group.querySelector(".menu-list");
-        if (button) button.setAttribute("aria-expanded", "false");
         if (list) list.hidden = true;
       };
 
@@ -2603,9 +2606,7 @@ NAV_SCRIPT = dedent(
           if (item !== group) closeGroup(item);
         });
         group.classList.add("is-open");
-        const button = group.querySelector(".menu-toggle");
         const list = group.querySelector(".menu-list");
-        if (button) button.setAttribute("aria-expanded", "true");
         if (list) list.hidden = false;
       };
 
@@ -2615,9 +2616,8 @@ NAV_SCRIPT = dedent(
       };
 
       groups.forEach((group) => {
-        const button = group.querySelector(".menu-toggle");
         const list = group.querySelector(".menu-list");
-        if (!button || !list) return;
+        if (!list) return;
 
         closeGroup(group);
 
@@ -2630,14 +2630,6 @@ NAV_SCRIPT = dedent(
           }, 0);
         });
         list.addEventListener("mouseenter", () => openGroup(group));
-        button.addEventListener("click", (event) => {
-          event.stopPropagation();
-          if (group.classList.contains("is-open")) {
-            closeGroup(group);
-          } else {
-            openGroup(group);
-          }
-        });
       });
 
       document.addEventListener("click", (event) => {
@@ -2892,12 +2884,9 @@ SITE_CSS = dedent(
       position: relative;
       padding-bottom: 12px;
       margin-bottom: -12px;
-    }
-
-    .menu-trigger {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .menu-group::after {
@@ -2931,33 +2920,6 @@ SITE_CSS = dedent(
       text-decoration: none;
     }
 
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      flex: 0 0 42px;
-      border-radius: 999px;
-      border: 1px solid rgba(143, 208, 255, 0.1);
-      background: rgba(255, 255, 255, 0.04);
-      cursor: pointer;
-      appearance: none;
-      position: relative;
-      transition: all 0.2s ease;
-    }
-
-    .menu-toggle::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 9px;
-      height: 9px;
-      border-right: 2px solid currentColor;
-      border-bottom: 2px solid currentColor;
-      transform: translate(-50%, -64%) rotate(45deg);
-      color: var(--ink);
-      transition: transform 0.2s ease;
-    }
-
     .menu-title:hover,
     .menu-link:hover,
     .menu-link.is-active,
@@ -2967,19 +2929,6 @@ SITE_CSS = dedent(
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(5, 150, 239, 0.12));
       box-shadow: 0 16px 26px rgba(0, 0, 0, 0.18);
       transform: translateY(-1px);
-    }
-
-    .menu-toggle:hover,
-    .menu-group.is-open .menu-toggle,
-    .menu-group:focus-within .menu-toggle {
-      border-color: rgba(5, 150, 239, 0.32);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(5, 150, 239, 0.12));
-      box-shadow: 0 16px 26px rgba(0, 0, 0, 0.18);
-      transform: translateY(-1px);
-    }
-
-    .menu-group.is-open .menu-toggle::before {
-      transform: translate(-50%, -40%) rotate(225deg);
     }
 
     .menu-list {
@@ -4074,8 +4023,7 @@ SITE_CSS = dedent(
       color: #153247;
     }
 
-    html[data-theme="light"] .menu-title,
-    html[data-theme="light"] .menu-toggle {
+    html[data-theme="light"] .menu-title {
       border-color: rgba(17, 52, 76, 0.08);
       background: rgba(255, 255, 255, 0.78);
       color: var(--ink);
@@ -4085,10 +4033,7 @@ SITE_CSS = dedent(
     html[data-theme="light"] .menu-link:hover,
     html[data-theme="light"] .menu-link.is-active,
     html[data-theme="light"] .menu-group.is-open .menu-title,
-    html[data-theme="light"] .menu-group:focus-within .menu-title,
-    html[data-theme="light"] .menu-toggle:hover,
-    html[data-theme="light"] .menu-group.is-open .menu-toggle,
-    html[data-theme="light"] .menu-group:focus-within .menu-toggle {
+    html[data-theme="light"] .menu-group:focus-within .menu-title {
       border-color: rgba(5, 150, 239, 0.24);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(238, 248, 255, 0.96));
       box-shadow: 0 14px 24px rgba(17, 52, 76, 0.08);
@@ -4441,6 +4386,11 @@ SITE_CSS = dedent(
       color: var(--ink);
     }
 
+    .footer-address {
+      font-size: 0.84rem;
+      line-height: 1.58;
+    }
+
     .footer-title {
       color: var(--ink);
       font-family: var(--font-mono);
@@ -4583,10 +4533,6 @@ SITE_CSS = dedent(
         width: 100%;
       }
 
-      .menu-trigger {
-        width: 100%;
-      }
-
       .menu-title {
         width: auto;
         flex: 1 1 auto;
@@ -4595,10 +4541,6 @@ SITE_CSS = dedent(
 
       .menu-link {
         justify-content: flex-start;
-      }
-
-      .menu-toggle {
-        flex: 0 0 44px;
       }
 
       .menu-list {
