@@ -1019,6 +1019,15 @@ def load_blog_posts(data):
     return hydrated
 
 
+def blog_post_language(post):
+    value = (post.get("language") or post.get("lang") or post.get("locale") or "").strip().lower()
+    return "zh" if value.startswith("zh") else "en"
+
+
+def filter_blog_posts(posts, lang):
+    return [post for post in posts if blog_post_language(post) == lang]
+
+
 def blog_href(lang, slug):
     prefix = "zh/blog" if lang == "zh" else "en/blog"
     return site_path(f"{prefix}/{slug}.html")
@@ -1130,7 +1139,8 @@ def render_switch(page, lang):
 def render_blog_switch(post, lang):
     other = "en" if lang == "zh" else "zh"
     label = "English" if lang == "zh" else "中文"
-    return f'<a class="lang-switch" href="{blog_href(other, post["slug"])}">{label}</a>'
+    target = blog_href(other, post["slug"]) if blog_post_language(post) == other else page_href(other, "news-blog")
+    return f'<a class="lang-switch" href="{target}">{label}</a>'
 
 
 def render_theme_toggle(lang):
@@ -1666,58 +1676,9 @@ def render_news_blog_page(page, lang, data):
     detail = get_page_detail(page, lang)
     title = page["title_zh"] if lang == "zh" else page["title_en"]
     summary = page["summary_zh"] if lang == "zh" else page["summary_en"]
-    posts = load_blog_posts(data)
+    posts = filter_blog_posts(load_blog_posts(data), lang)
     post_count = str(len(posts))
     latest_date = posts[0]["date"] if posts else ("2026" if lang == "en" else "2026")
-    management_cards = [
-        {
-            "title": "Repo-managed content" if lang == "en" else "仓库内管理内容",
-            "body": "Each article now lives in this project with a manifest entry, a local body file, and a local cover image asset."
-            if lang == "en" else
-            "每篇文章现在都放在这个项目里，包括文章清单、本地正文文件和本地封面图。",
-        },
-        {
-            "title": "GitHub review workflow" if lang == "en" else "GitHub 审核流程",
-            "body": "Draft updates in the repo, review with pull requests, and track status with labels or a Project board."
-            if lang == "en" else
-            "文章草稿进入仓库后通过 Pull Request 审核，再用标签或 Project 面板跟踪状态。",
-        },
-        {
-            "title": "Build and publish from GitHub" if lang == "en" else "从 GitHub 构建和发布",
-            "body": "The static generator reads the repo content directly, so blog updates are published as part of the site instead of pointing back to the old platform."
-            if lang == "en" else
-            "静态站点会直接读取仓库里的文章内容，所以博客更新会成为新站的一部分，而不是再跳回旧平台。",
-        },
-    ]
-    management_html = "".join(
-        f"""
-        <article class="panel soft-panel">
-          <h3>{html.escape(card['title'])}</h3>
-          <p>{html.escape(card['body'])}</p>
-        </article>
-        """
-        for card in management_cards
-    )
-    stats_html = f"""
-    <section class="metrics-grid">
-      <article class="metric-card">
-        <strong>{post_count}</strong>
-        <span>{'Local posts in this website' if lang == 'en' else '当前新站内文章数'}</span>
-      </article>
-      <article class="metric-card">
-        <strong>{html.escape(latest_date)}</strong>
-        <span>{'Latest article date' if lang == 'en' else '最近文章时间'}</span>
-      </article>
-      <article class="metric-card">
-        <strong>GitHub</strong>
-        <span>{'Free editorial workflow ready' if lang == 'en' else '已接入免费内容工作流'}</span>
-      </article>
-      <article class="metric-card">
-        <strong>Local</strong>
-        <span>{'Articles and covers are hosted in this project' if lang == 'en' else '文章和封面都托管在本项目中'}</span>
-      </article>
-    </section>
-    """
     return f"""
     <section class="hero hero-page">
       <div class="hero-copy">
@@ -1726,37 +1687,30 @@ def render_news_blog_page(page, lang, data):
         <p class="lead">{html.escape(summary)}</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#blog-posts">{'查看文章列表' if lang == 'zh' else 'Browse Posts'}</a>
-          <a class="btn btn-secondary" href="#blog-management">{'查看管理' if lang == 'zh' else 'See Setup'}</a>
+          <a class="btn btn-secondary" href="{page_href(lang, 'company')}">{'了解我们' if lang == 'zh' else 'About iCentech'}</a>
         </div>
       </div>
       {render_page_visual(page, detail, lang, chips=detail['highlights'], label='内容示意' if lang == 'zh' else 'Content View')}
     </section>
 
-    {stats_html}
-
     <section class="section-shell two-col-shell">
       <article class="panel">
         <span class="section-kicker">{'博客' if lang == 'zh' else 'Blog'}</span>
-        <h2>{'博客已在新站' if lang == 'zh' else 'Blog, Now Here'}</h2>
+        <h2>{'最新内容' if lang == 'zh' else 'Latest Content'}</h2>
         <p>{html.escape(detail['intro'])}</p>
         {render_pill_list(detail['highlights'])}
       </article>
-      <article class="panel ai-panel" id="blog-management">
-        <span class="section-kicker">{'管理' if lang == 'zh' else 'Management'}</span>
-        <h2>{'GitHub 管理' if lang == 'zh' else 'Managed in GitHub'}</h2>
-        <p>{html.escape('后续只要在 GitHub 仓库里新增或更新文章文件，生成器就会把它们编进新网站。'
+      <article class="panel ai-panel">
+        <span class="section-kicker">{'概览' if lang == 'zh' else 'Overview'}</span>
+        <h2>{'按语言查看' if lang == 'zh' else 'Browse by Language'}</h2>
+        <p>{html.escape('这里仅展示中文文章。英文内容会保留在英文版博客中。'
         if lang == 'zh' else
-        'New or updated posts can be managed in the repo, reviewed in pull requests, and compiled directly into this website.')}</p>
-        {list_items(detail['workflow'], ordered=True)}
+        'This page shows only English posts. Chinese articles stay in the Chinese blog.')}</p>
+        <ul class="pill-list">
+          <li>{post_count}{' 篇文章' if lang == 'zh' else ' posts'}</li>
+          <li>{'最近更新 ' if lang == 'zh' else 'Latest update '}{html.escape(latest_date)}</li>
+        </ul>
       </article>
-    </section>
-
-    <section class="section-shell">
-      <div class="section-heading">
-        <span class="section-kicker">{'维护方式' if lang == 'zh' else 'Publishing Setup'}</span>
-        <h2>{'后续就按这套走' if lang == 'zh' else 'A Simple Ongoing Setup'}</h2>
-      </div>
-      <div class="stack-grid stack-grid-three">{management_html}</div>
     </section>
 
     <section class="section-shell" id="blog-posts">
@@ -1770,7 +1724,11 @@ def render_news_blog_page(page, lang, data):
 
 
 def render_blog_post_page(page, post, lang, data):
-    sibling_posts = [item for item in load_blog_posts(data) if item["slug"] != post["slug"]][:3]
+    sibling_posts = [
+        item
+        for item in filter_blog_posts(load_blog_posts(data), lang)
+        if item["slug"] != post["slug"]
+    ][:3]
     title = post["title"]
     subtitle = post.get("subtitle", "")
     excerpt = post.get("excerpt") or excerpt_from_body(post.get("body_html", ""))
@@ -4681,6 +4639,9 @@ def main():
     zh_dir.mkdir(parents=True, exist_ok=True)
     en_blog_dir.mkdir(parents=True, exist_ok=True)
     zh_blog_dir.mkdir(parents=True, exist_ok=True)
+    for blog_dir in (en_blog_dir, zh_blog_dir):
+        for stale_file in blog_dir.glob("*.html"):
+            stale_file.unlink()
 
     for page in data["pages"]:
         filename = page_filename(page["slug"])
@@ -4690,12 +4651,10 @@ def main():
     blog_page = next((page for page in data["pages"] if page["slug"] == "news-blog"), None)
     if blog_page:
         for post in blog_posts:
-            (en_blog_dir / f"{post['slug']}.html").write_text(
-                render_blog_detail_document(data, blog_page, post, "en"),
-                encoding="utf-8",
-            )
-            (zh_blog_dir / f"{post['slug']}.html").write_text(
-                render_blog_detail_document(data, blog_page, post, "zh"),
+            post_lang = blog_post_language(post)
+            target_dir = en_blog_dir if post_lang == "en" else zh_blog_dir
+            (target_dir / f"{post['slug']}.html").write_text(
+                render_blog_detail_document(data, blog_page, post, post_lang),
                 encoding="utf-8",
             )
 
@@ -4713,7 +4672,7 @@ def main():
         encoding="utf-8",
     )
 
-    print(f"Generated {len(data['pages']) * 2 + len(blog_posts) * 2 + 1} pages with branded assets in {OUT_DIR}")
+    print(f"Generated {len(data['pages']) * 2 + len(blog_posts) + 1} pages with branded assets in {OUT_DIR}")
 
 
 if __name__ == "__main__":
