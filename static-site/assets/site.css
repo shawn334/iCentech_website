@@ -342,6 +342,11 @@ li,
   align-items: stretch;
 }
 
+.hero-page {
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  align-items: stretch;
+}
+
 .hero-copy {
   width: 100%;
   padding: 44px;
@@ -374,6 +379,32 @@ li,
   max-height: 100%;
   object-fit: contain;
   border-radius: 18px;
+}
+
+.hero-visual-card {
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+  min-height: 100%;
+}
+
+.hero-image-shell {
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(143, 208, 255, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 55%),
+    rgba(8, 19, 28, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.page-visual-image {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
 }
 
 .hero-visual-map {
@@ -555,6 +586,45 @@ li,
   color: var(--ink);
   font-size: 0.84rem;
   font-weight: 600;
+}
+
+.visual-step-strip {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.visual-step-strip li {
+  display: grid;
+  gap: 8px;
+  padding: 14px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(143, 208, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.visual-step-strip span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(5, 150, 239, 0.24), rgba(120, 197, 21, 0.24));
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+}
+
+.visual-step-strip p {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--ink);
 }
 
 @keyframes float {
@@ -798,6 +868,27 @@ p {
 
 .panel li {
   margin-bottom: 10px;
+}
+
+.pill-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill-list li {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(143, 208, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .card-grid {
@@ -1278,6 +1369,14 @@ html[data-theme="light"] .hero-visual {
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(238, 248, 255, 0.94));
 }
 
+html[data-theme="light"] .hero-image-shell,
+html[data-theme="light"] .visual-step-strip li,
+html[data-theme="light"] .pill-list li {
+  border-color: rgba(17, 52, 76, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: none;
+}
+
 html[data-theme="light"] .soft-panel {
   background:
     radial-gradient(circle at top left, rgba(120, 197, 21, 0.12), transparent 30%),
@@ -1339,6 +1438,10 @@ html[data-theme="light"] .hero-legend-title {
 html[data-theme="light"] .hero-tag-list li {
   background: rgba(255, 255, 255, 0.92);
   border-color: rgba(17, 52, 76, 0.08);
+  color: var(--ink);
+}
+
+html[data-theme="light"] .visual-step-strip p {
   color: var(--ink);
 }
 
@@ -1669,6 +1772,10 @@ html[data-theme="light"] .social-link:focus-visible {
   .hero-home {
     grid-template-columns: 1fr;
   }
+
+  .hero-page {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 780px) {
@@ -1732,6 +1839,10 @@ html[data-theme="light"] .social-link:focus-visible {
 
   .visual-grid {
     grid-template-columns: 1fr;
+  }
+
+  .visual-step-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .visual-grid::before,

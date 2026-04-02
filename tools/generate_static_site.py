@@ -91,7 +91,7 @@ MENU_GROUPS = [
             {"en": "DTP", "zh": "DTP 排版", "slug": "dtp"},
             {"en": "Engineering", "zh": "国际化工程", "slug": "engineering"},
             {"en": "Testing", "zh": "本地化测试", "slug": "testing"},
-            {"en": "Video Production", "zh": "多语视频制作", "slug": "video-production"},
+            {"en": "Video", "zh": "视频本地化", "slug": "video-production"},
             {"en": "Interpreting", "zh": "口译服务", "slug": "interpreting"},
         ],
     },
@@ -101,7 +101,7 @@ MENU_GROUPS = [
         "items": [
             {"en": "Document", "zh": "文档本地化", "slug": "document-localization"},
             {"en": "Website", "zh": "网站本地化", "slug": "website-localization"},
-            {"en": "Apps", "zh": "软件与应用本地化", "slug": "apps-localization"},
+            {"en": "Apps", "zh": "应用本地化", "slug": "apps-localization"},
             {"en": "Multimedia", "zh": "多媒体本地化", "slug": "multimedia-localization"},
             {"en": "eLearning", "zh": "eLearning 本地化", "slug": "elearning-localization"},
         ],
@@ -111,7 +111,7 @@ MENU_GROUPS = [
         "title_zh": "技术",
         "items": [
             {"en": "Technology", "zh": "技术能力", "slug": "technology"},
-            {"en": "AI", "zh": "AI 语言解决方案", "slug": "ai"},
+            {"en": "AI", "zh": "AI 支持", "slug": "ai"},
         ],
     },
     {
@@ -119,7 +119,7 @@ MENU_GROUPS = [
         "title_zh": "关于我们",
         "items": [
             {"en": "Company", "zh": "公司介绍", "slug": "company"},
-            {"en": "News & Blog", "zh": "新闻与博客", "slug": "news-blog"},
+            {"en": "Blog", "zh": "博客", "slug": "news-blog"},
             {"en": "Career", "zh": "加入我们", "slug": "career"},
             {"en": "Freelance", "zh": "自由职业合作", "slug": "freelance"},
         ],
@@ -198,8 +198,8 @@ HOME_SECTIONS = {
             {"title": "Localize and QA", "body": "Translate, adapt, engineer, and review in a coordinated cycle."},
             {"title": "Deliver and iterate", "body": "Ship approved assets and keep future updates easier to manage."},
         ],
-        "proof_title": "Quality and process you can show internally",
-        "proof_body": "Useful for teams that need clear standards, fewer handoffs, and a repeatable multilingual workflow.",
+        "proof_title": "Built for product, marketing, and ops",
+        "proof_body": "Useful for teams that want clear standards, fewer handoffs, and repeatable delivery.",
         "proof_points": [
             "ISO 17100:2015 for translation services",
             "ISO 18587:2017 for machine translation post-editing",
@@ -210,7 +210,7 @@ HOME_SECTIONS = {
             {"title": "Marketing teams", "body": "For websites, campaigns, collateral, and SEO-ready content."},
             {"title": "Operations teams", "body": "For documentation, training, support, and ongoing updates."},
         ],
-        "cta_title": "Plan the next multilingual launch with less rework",
+        "cta_title": "Start here",
         "cta_body": "Start with the solution area that matches your immediate need, then define scope and languages with one team.",
     },
     "zh": {
@@ -264,8 +264,8 @@ HOME_SECTIONS = {
             {"title": "执行与 QA", "body": "翻译、适配、工程处理和质检在同一周期内推进。"},
             {"title": "交付与迭代", "body": "交付可上线版本，并让后续更新更容易维护。"},
         ],
-        "proof_title": "能让你在内部也更好说明的流程与质量",
-        "proof_body": "适合重视标准、交付透明度和长期多语言协作方式的团队。",
+        "proof_title": "适合产品、市场和运营团队",
+        "proof_body": "适合重视标准、透明度和长期协作的团队。",
         "proof_points": [
             "ISO 17100:2015 翻译服务标准",
             "ISO 18587:2017 机器翻译后编辑标准",
@@ -276,7 +276,7 @@ HOME_SECTIONS = {
             {"title": "市场团队", "body": "适合网站、活动页、宣传资料和 SEO 内容。"},
             {"title": "运营团队", "body": "适合文档、培训内容、支持材料和持续更新。"},
         ],
-        "cta_title": "让下一次多语言发布少一点返工",
+        "cta_title": "从这里开始",
         "cta_body": "先看最接近你当前需求的解决方案，再和一个团队一起确认范围和语言。",
     },
 }
@@ -1117,7 +1117,7 @@ def render_footer_content(lang):
     address_label = "地址" if lang == "zh" else "Addresses"
     contact_label = "联系方式" if lang == "zh" else "Contact"
     social_label = "社交媒体" if lang == "zh" else "Social"
-    brand_name = "E森泰 iCentech" if lang == "zh" else "iCentech"
+    brand_name = "艾森思伟" if lang == "zh" else "iCentech"
     legal_name = "艾森思伟科技（北京）有限公司" if lang == "zh" else "iCentech Limited"
     brand_summary = (
         "让多语言内容、产品与全球交付更清晰、更省心。"
@@ -1281,6 +1281,44 @@ def render_home_visual(home, lang):
     """
 
 
+def render_pill_list(items):
+    chips = "".join(f"<li>{html.escape(item)}</li>" for item in items)
+    return f'<ul class="pill-list">{chips}</ul>'
+
+
+def render_page_visual(page, detail, lang, image_url=None, chips=None, label=None):
+    legend_title = label or ("Quick View" if lang == "en" else "快速查看")
+    preview_src = image_url or asset_href(f"{page_asset_basename(page['slug'])}-{lang}.svg")
+    legend_items = chips or detail.get("outputs") or detail.get("highlights") or []
+    workflow_items = detail.get("workflow", [])[:4]
+    workflow_html = "".join(
+        f"""
+        <li>
+          <span>{index + 1:02d}</span>
+          <p>{html.escape(chip_text(item))}</p>
+        </li>
+        """
+        for index, item in enumerate(workflow_items)
+    )
+    chips_html = "".join(f"<li>{html.escape(chip_text(item))}</li>" for item in legend_items[:4])
+    return f"""
+    <div class="hero-visual hero-visual-card">
+      <div class="hero-image-shell">
+        <img class="hero-image page-visual-image" src="{preview_src}" alt="">
+      </div>
+      <ol class="visual-step-strip">
+        {workflow_html}
+      </ol>
+      <div class="hero-legend">
+        <span class="hero-legend-title">{legend_title}</span>
+        <ul class="hero-tag-list">
+          {chips_html}
+        </ul>
+      </div>
+    </div>
+    """
+
+
 def render_related_cards(data, page, lang):
     related_slugs = PAGE_RELATIONS.get(page["slug"], [])
     pages_by_slug = {item["slug"]: item for item in data["pages"]}
@@ -1400,8 +1438,8 @@ def render_home(page, lang, data):
     <section id="solutions" class="section-shell">
       <div class="section-heading">
         <span class="section-kicker">{'解决方案' if lang == 'zh' else 'Solutions'}</span>
-        <h2>{'先找到最接近你当前项目的方案' if lang == 'zh' else 'Start with the setup that matches your launch'}</h2>
-        <p>{'先按业务场景看，不必一开始就在多个服务模块之间来回比较。' if lang == 'zh' else 'Choose by business need first, instead of sorting through multiple service lines on day one.'}</p>
+        <h2>{'先看适合的方案' if lang == 'zh' else 'Pick a Starting Point'}</h2>
+        <p>{'先按项目类型看，再决定具体服务。' if lang == 'zh' else 'Start by project type, then go deeper.'}</p>
       </div>
       <div class="solution-grid">{render_home_solution_cards(home, lang)}</div>
     </section>
@@ -1409,7 +1447,7 @@ def render_home(page, lang, data):
     <section class="section-shell narrative-shell">
       <article class="panel story-panel">
         <span class="section-kicker">{'为什么选择 iCentech' if lang == 'zh' else 'Why iCentech'}</span>
-        <h2>{'把多语言发布做成一条更顺的交付链路' if lang == 'zh' else 'Keep multilingual launches moving without stitching together multiple vendors'}</h2>
+        <h2>{'一个团队，交付更顺' if lang == 'zh' else 'One Team, Less Friction'}</h2>
         <p>{html.escape(detail['intro'])}</p>
       </article>
       <div class="benefit-grid">
@@ -1420,7 +1458,7 @@ def render_home(page, lang, data):
     <section id="workflow" class="section-shell two-col-shell workflow-shell">
       <article class="panel process-panel">
         <span class="section-kicker">{'交付流程' if lang == 'zh' else 'Delivery Flow'}</span>
-        <h2>{'从目标到交付，团队知道下一步是什么' if lang == 'zh' else 'From scope to delivery, each step stays visible'}</h2>
+        <h2>{'四步推进' if lang == 'zh' else 'Four Clear Steps'}</h2>
         <div class="process-list">{process}</div>
       </article>
       <article class="panel proof-panel">
@@ -1510,23 +1548,24 @@ def render_news_blog_page(page, lang, data):
         <p class="lead">{html.escape(summary)}</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#blog-posts">{'查看文章列表' if lang == 'zh' else 'Browse Posts'}</a>
-          <a class="btn btn-secondary" href="#blog-management">{'查看管理方式' if lang == 'zh' else 'See Management Setup'}</a>
+          <a class="btn btn-secondary" href="#blog-management">{'查看管理' if lang == 'zh' else 'See Setup'}</a>
         </div>
       </div>
+      {render_page_visual(page, detail, lang, chips=detail['highlights'], label='内容示意' if lang == 'zh' else 'Content View')}
     </section>
 
     {stats_html}
 
     <section class="section-shell two-col-shell">
       <article class="panel">
-        <span class="section-kicker">{'文章中心' if lang == 'zh' else 'Editorial Hub'}</span>
-        <h2>{'现在博客已经成为新站的一部分' if lang == 'zh' else 'The blog now lives inside the new site'}</h2>
+        <span class="section-kicker">{'博客' if lang == 'zh' else 'Blog'}</span>
+        <h2>{'博客已在新站' if lang == 'zh' else 'Blog, Now Here'}</h2>
         <p>{html.escape(detail['intro'])}</p>
-        {list_items(detail['highlights'])}
+        {render_pill_list(detail['highlights'])}
       </article>
       <article class="panel ai-panel" id="blog-management">
-        <span class="section-kicker">{'博客管理' if lang == 'zh' else 'Blog Management'}</span>
-        <h2>{'用 GitHub 免费能力管理选题、审核和发布' if lang == 'zh' else 'Use GitHub’s free tools for intake, review, and publishing'}</h2>
+        <span class="section-kicker">{'管理' if lang == 'zh' else 'Management'}</span>
+        <h2>{'GitHub 管理' if lang == 'zh' else 'Managed in GitHub'}</h2>
         <p>{html.escape('后续只要在 GitHub 仓库里新增或更新文章文件，生成器就会把它们编进新网站。'
         if lang == 'zh' else
         'New or updated posts can be managed in the repo, reviewed in pull requests, and compiled directly into this website.')}</p>
@@ -1536,8 +1575,8 @@ def render_news_blog_page(page, lang, data):
 
     <section class="section-shell">
       <div class="section-heading">
-        <span class="section-kicker">{'管理结构' if lang == 'zh' else 'Management Setup'}</span>
-        <h2>{'后续维护可以直接按这套流程走' if lang == 'zh' else 'A simple setup for ongoing publishing'}</h2>
+        <span class="section-kicker">{'维护方式' if lang == 'zh' else 'Publishing Setup'}</span>
+        <h2>{'后续就按这套走' if lang == 'zh' else 'A Simple Ongoing Setup'}</h2>
       </div>
       <div class="stack-grid stack-grid-three">{management_html}</div>
     </section>
@@ -1545,7 +1584,7 @@ def render_news_blog_page(page, lang, data):
     <section class="section-shell" id="blog-posts">
       <div class="section-heading">
         <span class="section-kicker">{'文章' if lang == 'zh' else 'Posts'}</span>
-        <h2>{'这些文章现在直接发布在新网站里' if lang == 'zh' else 'These articles now publish directly on the new website'}</h2>
+        <h2>{'最新文章' if lang == 'zh' else 'Latest Posts'}</h2>
       </div>
       <div class="blog-grid">{render_blog_cards(lang, posts)}</div>
     </section>
@@ -1572,7 +1611,7 @@ def render_blog_post_page(page, post, lang, data):
     return f"""
     <section class="hero hero-page hero-blog-post">
       <div class="hero-copy">
-        <span class="eyebrow">{'博客文章' if lang == 'zh' else 'Blog Article'}</span>
+        <span class="eyebrow">{'文章' if lang == 'zh' else 'Article'}</span>
         <h1>{html.escape(title)}</h1>
         <p class="lead">{html.escape(subtitle or excerpt)}</p>
         <div class="hero-meta-strip">
@@ -1581,6 +1620,7 @@ def render_blog_post_page(page, post, lang, data):
           <span class="meta-pill">{'新站内发布' if lang == 'zh' else 'Published in this site'}</span>
         </div>
       </div>
+      {render_page_visual(page, get_page_detail(page, lang), lang, image_url=post.get('image_url') or asset_href(f"{page_asset_basename(page['slug'])}-{lang}.svg"), chips=post.get('tags') or [post.get('date', ''), 'iCentech'], label='文章预览' if lang == 'zh' else 'Article Preview')}
     </section>
 
     <section class="section-shell two-col-shell">
@@ -1592,14 +1632,14 @@ def render_blog_post_page(page, post, lang, data):
       </article>
       <aside class="stack-grid">
         <article class="panel soft-panel">
-          <span class="section-kicker">{'文章信息' if lang == 'zh' else 'Post Info'}</span>
-          <h2>{'快速了解这篇文章' if lang == 'zh' else 'Quick context for this article'}</h2>
+          <span class="section-kicker">{'摘要' if lang == 'zh' else 'Summary'}</span>
+          <h2>{'文章摘要' if lang == 'zh' else 'Quick Summary'}</h2>
           <p>{html.escape(excerpt)}</p>
           {tag_html}
         </article>
         <article class="panel ai-panel">
-          <span class="section-kicker">{'管理方式' if lang == 'zh' else 'Management'}</span>
-          <h2>{'文章已经放进仓库管理' if lang == 'zh' else 'This post is now repo-managed'}</h2>
+          <span class="section-kicker">{'管理' if lang == 'zh' else 'Management'}</span>
+          <h2>{'仓库管理' if lang == 'zh' else 'Repo Managed'}</h2>
           <p>{html.escape('正文文件、封面图和文章清单都已经本地化，后续可以直接在 GitHub 里维护。'
           if lang == 'zh' else
           'The body file, cover image, and post manifest now live in the repo, so future edits can happen directly in GitHub.')}</p>
@@ -1609,8 +1649,8 @@ def render_blog_post_page(page, post, lang, data):
 
     <section class="section-shell">
       <div class="section-heading">
-        <span class="section-kicker">{'继续阅读' if lang == 'zh' else 'Continue Reading'}</span>
-        <h2>{'你还可以看这些文章' if lang == 'zh' else 'You may also want these posts'}</h2>
+        <span class="section-kicker">{'相关文章' if lang == 'zh' else 'Related Posts'}</span>
+        <h2>{'继续阅读' if lang == 'zh' else 'Continue Reading'}</h2>
       </div>
       <div class="card-grid">{related_cards}</div>
     </section>
@@ -1636,36 +1676,37 @@ def render_inner_page(page, lang, data):
           <a class="btn btn-secondary" href="{page_href(lang, 'company')}">{'查看公司介绍' if lang == 'zh' else 'See Company'}</a>
         </div>
       </div>
+      {render_page_visual(page, detail, lang, chips=detail['outputs'], label='服务示意' if lang == 'zh' else 'Service View')}
     </section>
 
     <section class="section-shell two-col-shell">
       <article class="panel">
-        <span class="section-kicker">{'服务概览' if lang == 'zh' else 'Overview'}</span>
-        <h2>{'这项服务能帮你做什么' if lang == 'zh' else 'What this service helps you do'}</h2>
+        <span class="section-kicker">{'概览' if lang == 'zh' else 'Overview'}</span>
+        <h2>{'核心价值' if lang == 'zh' else 'Core Value'}</h2>
         <p>{html.escape(detail['intro'])}</p>
       </article>
       <article class="panel soft-panel">
-        <span class="section-kicker">{'适用场景' if lang == 'zh' else 'Best Fit'}</span>
-        <h2>{'你可以在这些场景里使用它' if lang == 'zh' else 'Use it for situations like these'}</h2>
-        {list_items(detail['fit'])}
+        <span class="section-kicker">{'适合' if lang == 'zh' else 'Best Fit'}</span>
+        <h2>{'常见场景' if lang == 'zh' else 'Use Cases'}</h2>
+        {render_pill_list(detail['fit'])}
       </article>
     </section>
 
     <section class="quick-grid">
       <article class="panel">
-        <span class="section-kicker">{'我们处理什么' if lang == 'zh' else 'What We Handle'}</span>
-        {list_items(detail['highlights'])}
+        <span class="section-kicker">{'处理内容' if lang == 'zh' else 'Scope'}</span>
+        {render_pill_list(detail['highlights'])}
       </article>
       <article class="panel">
-        <span class="section-kicker">{'你会拿到什么' if lang == 'zh' else 'What You Get'}</span>
-        {list_items(detail['outputs'])}
+        <span class="section-kicker">{'交付结果' if lang == 'zh' else 'Outputs'}</span>
+        {render_pill_list(detail['outputs'])}
       </article>
       <article class="panel ai-panel">
-        <span class="section-kicker">{'为什么更好理解' if lang == 'zh' else 'Why It Is Easier To Use'}</span>
+        <span class="section-kicker">{'项目方式' if lang == 'zh' else 'Model'}</span>
         <p>
-          {html.escape('这个页面现在按“能做什么、适合什么场景、你会拿到什么、流程怎么走”来组织，更容易快速判断。'
+          {html.escape('按价值、场景、交付和流程来组织，更容易快速判断。'
           if lang == 'zh' else
-          'This page is now organized around what it does, when to use it, what you get, and how it works, so you can scan it faster.')}
+          'Organized by value, fit, outputs, and flow so it is easier to scan.')}
         </p>
       </article>
     </section>
@@ -1673,14 +1714,14 @@ def render_inner_page(page, lang, data):
     <section class="section-shell two-col-shell">
       <article class="panel">
         <span class="section-kicker">{'流程' if lang == 'zh' else 'Workflow'}</span>
-        <h2>{'这项服务通常怎么推进' if lang == 'zh' else 'How the work usually moves forward'}</h2>
+        <h2>{'标准流程' if lang == 'zh' else 'Standard Flow'}</h2>
         <ol class="timeline-list">
           {''.join(f'<li><span class="step-index">{index + 1:02d}</span><span>{html.escape(item)}</span></li>' for index, item in enumerate(detail['workflow']))}
         </ol>
       </article>
       <article class="panel">
-        <span class="section-kicker">{'你可能还会需要' if lang == 'zh' else 'You May Also Need'}</span>
-        <h2>{'这些服务经常会一起使用' if lang == 'zh' else 'These services are often used together'}</h2>
+        <span class="section-kicker">{'相关服务' if lang == 'zh' else 'Related'}</span>
+        <h2>{'常搭配的服务' if lang == 'zh' else 'Often Paired With'}</h2>
         <div class="card-grid compact-grid">{related}</div>
       </article>
     </section>
@@ -2399,6 +2440,11 @@ SITE_CSS = dedent(
       align-items: stretch;
     }
 
+    .hero-page {
+      grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+      align-items: stretch;
+    }
+
     .hero-copy {
       width: 100%;
       padding: 44px;
@@ -2431,6 +2477,32 @@ SITE_CSS = dedent(
       max-height: 100%;
       object-fit: contain;
       border-radius: 18px;
+    }
+
+    .hero-visual-card {
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      min-height: 100%;
+    }
+
+    .hero-image-shell {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(143, 208, 255, 0.14);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 55%),
+        rgba(8, 19, 28, 0.24);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .page-visual-image {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 0;
     }
 
     .hero-visual-map {
@@ -2612,6 +2684,45 @@ SITE_CSS = dedent(
       color: var(--ink);
       font-size: 0.84rem;
       font-weight: 600;
+    }
+
+    .visual-step-strip {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .visual-step-strip li {
+      display: grid;
+      gap: 8px;
+      padding: 14px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(143, 208, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .visual-step-strip span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(5, 150, 239, 0.24), rgba(120, 197, 21, 0.24));
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      font-family: var(--font-mono);
+    }
+
+    .visual-step-strip p {
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: var(--ink);
     }
 
     @keyframes float {
@@ -2855,6 +2966,27 @@ SITE_CSS = dedent(
 
     .panel li {
       margin-bottom: 10px;
+    }
+
+    .pill-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill-list li {
+      margin: 0;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 208, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink);
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.35;
     }
 
     .card-grid {
@@ -3335,6 +3467,14 @@ SITE_CSS = dedent(
         linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(238, 248, 255, 0.94));
     }
 
+    html[data-theme="light"] .hero-image-shell,
+    html[data-theme="light"] .visual-step-strip li,
+    html[data-theme="light"] .pill-list li {
+      border-color: rgba(17, 52, 76, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: none;
+    }
+
     html[data-theme="light"] .soft-panel {
       background:
         radial-gradient(circle at top left, rgba(120, 197, 21, 0.12), transparent 30%),
@@ -3396,6 +3536,10 @@ SITE_CSS = dedent(
     html[data-theme="light"] .hero-tag-list li {
       background: rgba(255, 255, 255, 0.92);
       border-color: rgba(17, 52, 76, 0.08);
+      color: var(--ink);
+    }
+
+    html[data-theme="light"] .visual-step-strip p {
       color: var(--ink);
     }
 
@@ -3726,6 +3870,10 @@ SITE_CSS = dedent(
       .hero-home {
         grid-template-columns: 1fr;
       }
+
+      .hero-page {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 780px) {
@@ -3789,6 +3937,10 @@ SITE_CSS = dedent(
 
       .visual-grid {
         grid-template-columns: 1fr;
+      }
+
+      .visual-step-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .visual-grid::before,
