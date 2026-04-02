@@ -121,7 +121,7 @@ MENU_GROUPS = [
             {"en": "Company", "zh": "公司介绍", "slug": "company"},
             {"en": "Blog", "zh": "博客", "slug": "news-blog"},
             {"en": "Career", "zh": "加入我们", "slug": "career"},
-            {"en": "Freelance", "zh": "自由职业合作", "slug": "freelance"},
+            {"en": "Freelance", "zh": "合作网络", "slug": "freelance"},
         ],
     },
 ]
@@ -1117,7 +1117,7 @@ def render_footer_content(lang):
     address_label = "地址" if lang == "zh" else "Addresses"
     contact_label = "联系方式" if lang == "zh" else "Contact"
     social_label = "社交媒体" if lang == "zh" else "Social"
-    brand_name = "艾森思伟" if lang == "zh" else "iCentech"
+    brand_name = "艾森思伟 · iCentech" if lang == "zh" else "iCentech"
     legal_name = "艾森思伟科技（北京）有限公司" if lang == "zh" else "iCentech Limited"
     brand_summary = (
         "让多语言内容、产品与全球交付更清晰、更省心。"
@@ -1802,7 +1802,6 @@ def render_page(data, page, lang):
     </div>
   </header>
   <main id="main-content" class="main-shell">
-    {render_breadcrumbs(page, lang)}
     {body_content}
   </main>
   <footer class="site-footer">
@@ -1859,7 +1858,6 @@ def render_blog_detail_document(data, page, post, lang):
     </div>
   </header>
   <main id="main-content" class="main-shell">
-    {render_blog_breadcrumbs(page, post, lang)}
     {render_blog_post_page(page, post, lang, data)}
   </main>
   <footer class="site-footer">
@@ -1907,8 +1905,410 @@ def wrap_text(value, max_chars, max_lines):
     return chunks
 
 
+SVG_SCENE_MAP = {
+    "": "home-og",
+    "translation": "translation",
+    "dtp": "dtp",
+    "engineering": "engineering",
+    "testing": "testing",
+    "video-production": "video",
+    "interpreting": "interpreting",
+    "document-localization": "documents",
+    "website-localization": "website",
+    "apps-localization": "apps",
+    "multimedia-localization": "media",
+    "elearning-localization": "elearning",
+    "technology": "technology",
+    "ai": "ai",
+    "company": "company",
+    "news-blog": "blog",
+    "career": "career",
+    "freelance": "freelance",
+}
+
+
+def svg_card(x, y, width, height, rx=32, fill="rgba(255,255,255,0.92)", stroke="rgba(17,52,76,0.08)", stroke_width=2):
+    return (
+        f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="{rx}" '
+        f'fill="{fill}" stroke="{stroke}" stroke-width="{stroke_width}"/>'
+    )
+
+
+def svg_line_bar(x, y, width, height=16, rx=8, fill="rgba(17,52,76,0.12)"):
+    return f'<rect x="{x}" y="{y}" width="{width}" height="{height}" rx="{rx}" fill="{fill}"/>'
+
+
+def svg_scene_translation(theme):
+    lines = [
+        svg_card(168, 156, 470, 584, rx=38),
+        svg_card(700, 204, 310, 484, rx=36, fill="rgba(255,255,255,0.88)"),
+        svg_card(1058, 198, 332, 220, rx=30, fill="rgba(242,250,255,0.94)"),
+        svg_card(1040, 474, 356, 228, rx=34, fill="rgba(246,251,254,0.96)"),
+        '<path d="M652 422h92" fill="none" stroke="url(#line)" stroke-width="18" stroke-linecap="round"/>',
+        '<path d="M718 388l54 34-54 34" fill="none" stroke="url(#line)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>',
+        '<circle cx="1224" cy="308" r="72" fill="url(#primaryOrb)"/>',
+        '<circle cx="1224" cy="308" r="34" fill="rgba(255,255,255,0.9)"/>',
+        '<circle cx="1288" cy="644" r="48" fill="url(#accentOrb)" opacity="0.92"/>',
+    ]
+    for index, width in enumerate((250, 182, 224, 200, 248, 176, 208)):
+        lines.append(svg_line_bar(222, 226 + index * 48, width, fill="rgba(17,52,76,0.14)"))
+    for index, width in enumerate((188, 146, 168, 150, 194, 136)):
+        lines.append(svg_line_bar(432, 226 + index * 48, width, fill="rgba(5,150,239,0.18)"))
+    for index, width in enumerate((180, 136, 160, 126)):
+        lines.append(svg_line_bar(760, 286 + index * 58, width, fill="rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(760, 314 + index * 58, width - 36, 12, 6, "rgba(120,197,21,0.18)"))
+    for y, width, color in (
+        (468, 210, "rgba(17,52,76,0.14)"),
+        (506, 246, "rgba(5,150,239,0.18)"),
+        (542, 196, "rgba(17,52,76,0.12)"),
+        (584, 224, "rgba(120,197,21,0.18)"),
+    ):
+        lines.append(svg_line_bar(1138, y, width, 16 if y != 468 else 18, 9 if y != 468 else 9, color))
+    return "".join(lines)
+
+
+def svg_scene_documents(theme):
+    lines = [
+        svg_card(238, 154, 520, 578, rx=42),
+        svg_card(312, 214, 520, 578, rx=42, fill="rgba(255,255,255,0.84)"),
+        svg_card(886, 202, 464, 466, rx=36, fill="rgba(247,251,253,0.96)"),
+        '<rect x="402" y="274" width="340" height="38" rx="18" fill="url(#primaryOrb)" opacity="0.9"/>',
+        '<circle cx="640" cy="652" r="56" fill="none" stroke="url(#line)" stroke-width="14"/>',
+        '<path d="M616 652l18 18 34-40" fill="none" stroke="url(#line)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>',
+        svg_card(970, 264, 296, 116, rx=26, fill="rgba(232,247,255,0.96)"),
+        svg_card(970, 414, 296, 116, rx=26, fill="rgba(241,250,233,0.96)"),
+        svg_card(970, 564, 296, 72, rx=24, fill="rgba(255,255,255,0.96)"),
+    ]
+    for index, width in enumerate((268, 310, 288, 320, 298, 272)):
+        lines.append(svg_line_bar(402, 350 + index * 54, width, fill="rgba(17,52,76,0.14)"))
+    for y in (300, 450, 590):
+        lines.append(f'<circle cx="1020" cy="{y}" r="18" fill="url(#primaryOrb)"/>')
+        lines.append(svg_line_bar(1054, y - 10, 146, 16, 8, "rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(1054, y + 18, 118, 12, 6, "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_dtp(theme):
+    lines = [
+        svg_card(188, 144, 1224, 612, rx=44),
+        svg_card(282, 210, 658, 478, rx=28, fill="rgba(255,255,255,0.98)"),
+        svg_card(994, 210, 326, 230, rx=28, fill="rgba(241,248,252,0.96)"),
+        svg_card(994, 472, 326, 216, rx=28, fill="rgba(247,251,253,0.96)"),
+        '<rect x="350" y="276" width="522" height="296" rx="18" fill="rgba(5,150,239,0.08)" stroke="rgba(17,52,76,0.1)" stroke-dasharray="14 12" stroke-width="3"/>',
+        '<path d="M350 424h522M610 276v296" stroke="rgba(17,52,76,0.08)" stroke-width="3"/>',
+        svg_line_bar(364, 302, 250, 24, 12, "url(#primaryOrb)"),
+        svg_line_bar(364, 354, 420, 18, 9, "rgba(17,52,76,0.14)"),
+        svg_line_bar(364, 396, 382, 18, 9, "rgba(17,52,76,0.12)"),
+        svg_line_bar(364, 438, 278, 18, 9, "rgba(120,197,21,0.18)"),
+        svg_card(648, 474, 168, 72, rx=18, fill="rgba(241,250,233,0.96)"),
+        '<rect x="1028" y="252" width="258" height="36" rx="18" fill="url(#primaryOrb)" opacity="0.9"/>',
+    ]
+    for index, color in enumerate(("rgba(17,52,76,0.14)", "rgba(5,150,239,0.18)", "rgba(120,197,21,0.2)", "rgba(17,52,76,0.1)")):
+        lines.append(f'<circle cx="{1062 + index * 58}" cy="358" r="24" fill="{color}"/>')
+    for index, width in enumerate((210, 182, 224, 166)):
+        lines.append(svg_line_bar(1026, 516 + index * 40, width, 16, 8, "rgba(17,52,76,0.14)" if index % 2 == 0 else "rgba(5,150,239,0.16)"))
+    return "".join(lines)
+
+
+def svg_scene_website(theme):
+    lines = [
+        svg_card(176, 154, 1248, 590, rx=42),
+        '<rect x="176" y="154" width="1248" height="78" rx="42" fill="rgba(236,246,252,0.96)"/>',
+        '<circle cx="248" cy="193" r="12" fill="rgba(17,52,76,0.14)"/><circle cx="286" cy="193" r="12" fill="rgba(5,150,239,0.18)"/><circle cx="324" cy="193" r="12" fill="rgba(120,197,21,0.2)"/>',
+        svg_card(250, 284, 430, 392, rx=34, fill="rgba(255,255,255,0.98)"),
+        '<rect x="250" y="284" width="430" height="138" rx="34" fill="url(#primaryOrb)" opacity="0.88"/>',
+        svg_card(734, 284, 266, 178, rx=28, fill="rgba(241,248,252,0.96)"),
+        svg_card(1028, 284, 290, 178, rx=28, fill="rgba(247,251,253,0.96)"),
+        svg_card(734, 498, 584, 178, rx=28, fill="rgba(255,255,255,0.98)"),
+    ]
+    for index, width in enumerate((286, 214, 328, 266)):
+        lines.append(svg_line_bar(302, 470 + index * 42, width, 16, 8, "rgba(17,52,76,0.14)"))
+    for x in (786, 1080):
+        lines.append(svg_line_bar(x, 330, 166, 18, 9, "rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(x, 368, 132, 14, 7, "rgba(5,150,239,0.18)"))
+    for index, width in enumerate((476, 430, 388)):
+        lines.append(svg_line_bar(786, 546 + index * 40, width, 16, 8, "rgba(17,52,76,0.14)" if index != 1 else "rgba(120,197,21,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_apps(theme):
+    lines = [
+        svg_card(180, 180, 900, 520, rx=42),
+        svg_card(1014, 144, 254, 530, rx=46, fill="rgba(255,255,255,0.98)"),
+        svg_card(1146, 248, 244, 420, rx=36, fill="rgba(244,250,253,0.9)"),
+        '<rect x="242" y="246" width="776" height="54" rx="20" fill="rgba(236,246,252,0.96)"/>',
+        svg_card(242, 334, 344, 286, rx=30, fill="rgba(247,251,253,0.96)"),
+        svg_card(620, 334, 344, 136, rx=30, fill="rgba(236,248,255,0.96)"),
+        svg_card(620, 492, 344, 128, rx=30, fill="rgba(241,250,233,0.96)"),
+        '<rect x="1090" y="214" width="102" height="18" rx="9" fill="rgba(17,52,76,0.16)"/>',
+        '<circle cx="1206" cy="223" r="6" fill="rgba(17,52,76,0.2)"/>',
+        '<circle cx="1142" cy="456" r="52" fill="url(#primaryOrb)"/>',
+        svg_line_bar(1072, 554, 122, 16, 8, "rgba(17,52,76,0.14)"),
+        svg_line_bar(1072, 588, 94, 12, 6, "rgba(120,197,21,0.18)"),
+    ]
+    for y in (378, 434, 490):
+        lines.append(svg_line_bar(292, y, 240, 18, 9, "rgba(17,52,76,0.14)"))
+    for x, y, w in ((670, 376, 204), (670, 530, 194), (1086, 316, 188)):
+        lines.append(svg_line_bar(x, y, w, 18, 9, "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_engineering(theme):
+    lines = [
+        svg_card(176, 156, 1248, 588, rx=42),
+        svg_card(240, 220, 360, 460, rx=32, fill="rgba(247,251,253,0.96)"),
+        svg_card(652, 240, 320, 174, rx=28, fill="rgba(236,248,255,0.96)"),
+        svg_card(652, 448, 320, 174, rx=28, fill="rgba(241,250,233,0.96)"),
+        svg_card(1018, 220, 332, 402, rx=32, fill="rgba(255,255,255,0.98)"),
+        '<path d="M612 320h30c40 0 40 34 80 34h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+        '<path d="M612 542h30c40 0 40-34 80-34h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+        '<path d="M986 354h40c34 0 34 52 68 52h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+        '<path d="M986 534h40c34 0 34-52 68-52h0" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+    ]
+    for index, width in enumerate((244, 214, 228, 210, 236)):
+        lines.append(svg_line_bar(294, 286 + index * 56, width, 18, 9, "rgba(17,52,76,0.14)"))
+        lines.append(f'<circle cx="274" cy="{295 + index * 56}" r="10" fill="url(#primaryOrb)"/>')
+    for x, y in ((730, 330), (730, 538), (1120, 386), (1120, 494)):
+        lines.append(f'<circle cx="{x}" cy="{y}" r="22" fill="url(#accentOrb)"/>')
+    for index, width in enumerate((198, 160, 224, 190, 216)):
+        lines.append(svg_line_bar(1072, 294 + index * 54, width, 18, 9, "rgba(17,52,76,0.14)" if index % 2 == 0 else "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_testing(theme):
+    lines = [
+        svg_card(192, 150, 510, 604, rx=42, fill="rgba(247,251,253,0.96)"),
+        svg_card(752, 150, 660, 604, rx=42),
+        '<circle cx="446" cy="338" r="126" fill="none" stroke="url(#primaryOrb)" stroke-width="34"/>',
+        '<circle cx="446" cy="338" r="86" fill="rgba(255,255,255,0.96)"/>',
+        svg_line_bar(366, 512, 160, 24, 12, "rgba(17,52,76,0.16)"),
+        svg_line_bar(386, 554, 120, 18, 9, "rgba(120,197,21,0.2)"),
+    ]
+    for index, y in enumerate((260, 356, 452, 548)):
+        fill = "rgba(255,255,255,0.96)" if index % 2 == 0 else "rgba(241,250,233,0.96)"
+        lines.append(svg_card(818, y, 528, 78, rx=24, fill=fill))
+        lines.append(f'<circle cx="874" cy="{y + 39}" r="18" fill="url(#primaryOrb)"/>')
+        lines.append(svg_line_bar(912, y + 24, 230 + index * 16, 18, 9, "rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(912, y + 50, 174 + index * 10, 12, 6, "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_video(theme):
+    lines = [
+        svg_card(176, 154, 1248, 590, rx=42),
+        svg_card(248, 216, 864, 466, rx=34, fill="rgba(255,255,255,0.98)"),
+        svg_card(1144, 216, 208, 466, rx=34, fill="rgba(247,251,253,0.96)"),
+        '<rect x="248" y="216" width="864" height="282" rx="34" fill="url(#primaryOrb)" opacity="0.9"/>',
+        '<circle cx="680" cy="356" r="68" fill="rgba(255,255,255,0.94)"/>',
+        '<path d="M652 320l78 36-78 36z" fill="url(#primaryOrb)"/>',
+        svg_card(310, 532, 744, 92, rx=26, fill="rgba(241,248,252,0.96)"),
+        '<rect x="350" y="568" width="520" height="16" rx="8" fill="rgba(17,52,76,0.1)"/>',
+        '<rect x="350" y="568" width="322" height="16" rx="8" fill="url(#line)"/>',
+        svg_line_bar(348, 464, 520, 18, 9, "rgba(255,255,255,0.88)"),
+        svg_line_bar(348, 500, 436, 14, 7, "rgba(255,255,255,0.72)"),
+    ]
+    for index, y in enumerate((284, 408, 532)):
+        fill = "rgba(255,255,255,0.98)" if index != 1 else "rgba(241,250,233,0.96)"
+        lines.append(svg_card(1182, y, 132, 80, rx=22, fill=fill))
+        lines.append(svg_line_bar(1210, y + 24, 76, 14, 7, "rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(1210, y + 48, 56, 10, 5, "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_interpreting(theme):
+    lines = [
+        svg_card(214, 178, 448, 502, rx=44, fill="rgba(247,251,253,0.96)"),
+        svg_card(938, 178, 448, 502, rx=44, fill="rgba(247,251,253,0.96)"),
+        '<circle cx="800" cy="428" r="164" fill="url(#primaryOrb)" opacity="0.92"/>',
+        '<circle cx="800" cy="428" r="98" fill="rgba(255,255,255,0.92)"/>',
+        '<rect x="748" y="316" width="104" height="226" rx="48" fill="rgba(17,52,76,0.18)"/>',
+        '<circle cx="800" cy="312" r="56" fill="rgba(17,52,76,0.18)"/>',
+        '<path d="M722 654c44-30 112-46 160-46s116 16 160 46" fill="none" stroke="url(#line)" stroke-width="12" stroke-linecap="round"/>',
+        '<path d="M368 360c88 0 88 56 172 56" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+        '<path d="M1032 360c-88 0-88 56-172 56" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+    ]
+    for x, y in ((316, 316), (316, 534), (1040, 316), (1040, 534)):
+        lines.append(f'<circle cx="{x}" cy="{y}" r="56" fill="url(#accentOrb)" opacity="0.92"/>')
+        lines.append(svg_line_bar(x - 92, y + 88, 184, 16, 8, "rgba(17,52,76,0.14)"))
+    return "".join(lines)
+
+
+def svg_scene_media(theme):
+    lines = [svg_card(182, 156, 1244, 588, rx=42)]
+    for x, y, w, h, fill in (
+        (248, 226, 332, 206, "rgba(236,248,255,0.96)"),
+        (616, 226, 372, 206, "rgba(255,255,255,0.98)"),
+        (1024, 226, 332, 206, "rgba(241,250,233,0.96)"),
+        (248, 468, 372, 206, "rgba(255,255,255,0.98)"),
+        (656, 468, 286, 206, "rgba(247,251,253,0.96)"),
+        (978, 468, 378, 206, "rgba(255,255,255,0.98)"),
+    ):
+        lines.append(svg_card(x, y, w, h, rx=30, fill=fill))
+    lines.extend(
+        [
+            '<circle cx="798" cy="328" r="58" fill="url(#primaryOrb)"/>',
+            '<path d="M776 296l58 32-58 32z" fill="rgba(255,255,255,0.92)"/>',
+            '<path d="M296 570c42-42 78-42 120 0s78 42 120 0 78-42 120 0" fill="none" stroke="url(#line)" stroke-width="14" stroke-linecap="round"/>',
+            '<circle cx="1132" cy="330" r="54" fill="url(#accentOrb)" opacity="0.92"/>',
+            '<circle cx="1132" cy="570" r="54" fill="url(#accentOrb)" opacity="0.92"/>',
+        ]
+    )
+    return "".join(lines)
+
+
+def svg_scene_elearning(theme):
+    lines = [
+        svg_card(186, 158, 1228, 584, rx=42),
+        svg_card(246, 224, 456, 452, rx=34, fill="rgba(255,255,255,0.98)"),
+        svg_card(742, 224, 612, 144, rx=30, fill="rgba(236,248,255,0.96)"),
+        svg_card(742, 396, 612, 128, rx=30, fill="rgba(255,255,255,0.98)"),
+        svg_card(742, 552, 286, 124, rx=30, fill="rgba(241,250,233,0.96)"),
+        svg_card(1068, 552, 286, 124, rx=30, fill="rgba(247,251,253,0.96)"),
+        '<circle cx="474" cy="376" r="118" fill="url(#primaryOrb)" opacity="0.92"/>',
+        '<path d="M422 348h104M422 388h104M474 296v160" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="16" stroke-linecap="round"/>',
+        '<rect x="800" y="462" width="442" height="16" rx="8" fill="rgba(17,52,76,0.1)"/>',
+        '<rect x="800" y="462" width="286" height="16" rx="8" fill="url(#line)"/>',
+        '<circle cx="878" cy="614" r="38" fill="url(#accentOrb)"/>',
+        '<circle cx="1204" cy="614" r="38" fill="url(#primaryOrb)"/>',
+    ]
+    for y, width in ((272, 260), (314, 330), (444, 280), (486, 248)):
+        lines.append(svg_line_bar(800, y, width, 18, 9, "rgba(17,52,76,0.14)"))
+    return "".join(lines)
+
+
+def svg_scene_technology(theme):
+    lines = [
+        svg_card(180, 156, 1240, 588, rx=42),
+        svg_card(238, 220, 310, 214, rx=30, fill="rgba(247,251,253,0.96)"),
+        svg_card(586, 220, 310, 214, rx=30, fill="rgba(236,248,255,0.96)"),
+        svg_card(934, 220, 428, 214, rx=30, fill="rgba(255,255,255,0.98)"),
+        svg_card(238, 470, 524, 214, rx=30, fill="rgba(255,255,255,0.98)"),
+        svg_card(800, 470, 562, 214, rx=30, fill="rgba(247,251,253,0.96)"),
+        '<path d="M436 328h260M784 328h278M392 372v116h108M740 372v116h-108M1148 372v116h-64" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>',
+    ]
+    for x, y in ((392, 328), (740, 328), (1148, 328), (500, 578), (1084, 578)):
+        lines.append(f'<circle cx="{x}" cy="{y}" r="44" fill="url(#primaryOrb)" opacity="0.92"/>')
+    for x, y, w in ((308, 278, 148), (656, 278, 148), (1026, 278, 210), (308, 528, 310), (872, 528, 346)):
+        lines.append(svg_line_bar(x, y, w, 18, 9, "rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(x, y + 36, max(112, w - 62), 14, 7, "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_ai(theme):
+    lines = [
+        svg_card(178, 154, 1244, 590, rx=42),
+        '<circle cx="800" cy="450" r="168" fill="url(#primaryOrb)" opacity="0.96"/>',
+        '<circle cx="800" cy="450" r="98" fill="rgba(255,255,255,0.92)"/>',
+        '<circle cx="800" cy="450" r="44" fill="url(#accentOrb)"/>',
+    ]
+    for cx, cy, r in ((430, 252, 74), (1170, 252, 74), (320, 566, 82), (1280, 566, 82), (800, 196, 68), (800, 712, 68)):
+        inner = int(r * 0.42)
+        lines.append(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="rgba(255,255,255,0.88)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/>')
+        lines.append(f'<circle cx="{cx}" cy="{cy}" r="{inner}" fill="url(#primaryOrb)" opacity="0.88"/>')
+    for x1, y1, x2, y2 in ((490, 292, 690, 390), (1110, 292, 910, 390), (398, 550, 642, 482), (1202, 550, 958, 482), (800, 264, 800, 344), (800, 644, 800, 556)):
+        control_x = (x1 + x2) // 2
+        control_y = (y1 + y2) // 2 - 28
+        lines.append(f'<path d="M{x1} {y1} Q{control_x} {control_y} {x2} {y2}" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>')
+    return "".join(lines)
+
+
+def svg_scene_company(theme):
+    lines = [
+        svg_card(178, 154, 1244, 590, rx=42),
+        '<circle cx="800" cy="450" r="210" fill="rgba(236,248,255,0.9)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/>',
+        '<path d="M630 450h340M800 280v340" fill="none" stroke="rgba(17,52,76,0.08)" stroke-width="3"/>',
+        '<path d="M686 336c32 18 66 28 114 28s82-10 114-28M686 564c32-18 66-28 114-28s82 10 114 28" fill="none" stroke="rgba(17,52,76,0.08)" stroke-width="3"/>',
+        '<circle cx="800" cy="450" r="72" fill="url(#accentOrb)" opacity="0.92"/>',
+    ]
+    for x, y in ((524, 308), (1076, 308), (448, 592), (1152, 592), (800, 232)):
+        lines.append(svg_card(x - 94, y - 70, 188, 140, rx=28, fill="rgba(255,255,255,0.96)"))
+        lines.append(f'<circle cx="{x}" cy="{y - 18}" r="34" fill="url(#primaryOrb)" opacity="0.92"/>')
+        lines.append(svg_line_bar(x - 58, y + 30, 116, 16, 8, "rgba(17,52,76,0.14)"))
+    return "".join(lines)
+
+
+def svg_scene_blog(theme):
+    lines = [svg_card(178, 156, 1244, 588, rx=42)]
+    for x, y, w in ((238, 214, 338), (630, 214, 338), (1022, 214, 338)):
+        lines.extend(
+            [
+                svg_card(x, y, w, 470, rx=32, fill="rgba(255,255,255,0.98)"),
+                f'<rect x="{x}" y="{y}" width="{w}" height="188" rx="32" fill="url(#primaryOrb)" opacity="0.88"/>',
+                svg_line_bar(x + 38, y + 230, w - 92, 18, 9, "rgba(17,52,76,0.14)"),
+                svg_line_bar(x + 38, y + 268, w - 132, 14, 7, "rgba(5,150,239,0.18)"),
+                svg_line_bar(x + 38, y + 304, w - 112, 14, 7, "rgba(17,52,76,0.12)"),
+                svg_line_bar(x + 38, y + 360, 124, 32, 16, "rgba(241,250,233,0.96)"),
+            ]
+        )
+    return "".join(lines)
+
+
+def svg_scene_career(theme):
+    lines = [
+        svg_card(190, 156, 560, 588, rx=42, fill="rgba(255,255,255,0.98)"),
+        svg_card(806, 156, 606, 588, rx=42),
+        '<circle cx="470" cy="330" r="104" fill="url(#primaryOrb)" opacity="0.92"/>',
+        '<circle cx="470" cy="300" r="42" fill="rgba(255,255,255,0.92)"/>',
+        '<path d="M394 434c42-42 110-42 152 0" fill="none" stroke="rgba(17,52,76,0.18)" stroke-width="22" stroke-linecap="round"/>',
+    ]
+    for y, width in ((516, 228), (560, 188), (602, 244)):
+        lines.append(svg_line_bar(356, y, width, 16, 8, "rgba(17,52,76,0.14)"))
+    for index, y in enumerate((248, 396, 544)):
+        fill = "rgba(255,255,255,0.96)" if index % 2 == 0 else "rgba(241,250,233,0.96)"
+        lines.append(svg_card(866, y, 486, 104, rx=26, fill=fill))
+        lines.append(f'<circle cx="926" cy="{y + 52}" r="24" fill="url(#accentOrb)"/>')
+        lines.append(svg_line_bar(972, y + 36, 218, 18, 9, "rgba(17,52,76,0.14)"))
+        lines.append(svg_line_bar(972, y + 64, 174, 12, 6, "rgba(5,150,239,0.18)"))
+    return "".join(lines)
+
+
+def svg_scene_freelance(theme):
+    lines = [
+        svg_card(190, 156, 520, 588, rx=42),
+        svg_card(766, 156, 646, 588, rx=42, fill="rgba(255,255,255,0.98)"),
+        svg_card(258, 226, 384, 214, rx=32, fill="rgba(247,251,253,0.96)"),
+        svg_card(258, 472, 384, 198, rx=32, fill="rgba(241,250,233,0.96)"),
+        '<circle cx="450" cy="334" r="64" fill="url(#primaryOrb)" opacity="0.92"/>',
+        '<circle cx="420" cy="334" r="34" fill="rgba(255,255,255,0.92)"/>',
+        '<circle cx="482" cy="334" r="34" fill="rgba(255,255,255,0.92)"/>',
+        '<path d="M424 334c10 18 18 24 28 24s18-6 28-24" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+        '<path d="M940 334h170M1192 334h170M1024 582h170" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>',
+    ]
+    for y, width in ((532, 220), (574, 168), (616, 244)):
+        lines.append(svg_line_bar(320, y, width, 16, 8, "rgba(17,52,76,0.14)"))
+    for x, y in ((858, 280), (1110, 280), (1362, 280), (984, 520), (1236, 520)):
+        lines.append(svg_card(x - 82, y - 62, 164, 124, rx=24, fill="rgba(247,251,253,0.96)"))
+        lines.append(f'<circle cx="{x}" cy="{y - 10}" r="28" fill="url(#primaryOrb)" opacity="0.92"/>')
+        lines.append(svg_line_bar(x - 46, y + 36, 92, 14, 7, "rgba(17,52,76,0.14)"))
+    return "".join(lines)
+
+
+SVG_SCENE_RENDERERS = {
+    "home-og": svg_scene_company,
+    "translation": svg_scene_translation,
+    "documents": svg_scene_documents,
+    "dtp": svg_scene_dtp,
+    "website": svg_scene_website,
+    "apps": svg_scene_apps,
+    "engineering": svg_scene_engineering,
+    "testing": svg_scene_testing,
+    "video": svg_scene_video,
+    "interpreting": svg_scene_interpreting,
+    "media": svg_scene_media,
+    "elearning": svg_scene_elearning,
+    "technology": svg_scene_technology,
+    "ai": svg_scene_ai,
+    "company": svg_scene_company,
+    "blog": svg_scene_blog,
+    "career": svg_scene_career,
+    "freelance": svg_scene_freelance,
+}
+
+
 def render_svg(page, lang):
     theme = get_theme(page)
+    scene_key = SVG_SCENE_MAP.get(page["slug"], "company")
+    scene = SVG_SCENE_RENDERERS[scene_key](theme)
     return dedent(
         f"""\
         <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-hidden="true">
@@ -1918,15 +2318,11 @@ def render_svg(page, lang):
               <stop offset="55%" stop-color="#ffffff"/>
               <stop offset="100%" stop-color="#f4fbff"/>
             </linearGradient>
-            <linearGradient id="panelGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="rgba(255,255,255,0.92)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0.58)"/>
-            </linearGradient>
-            <linearGradient id="blueOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+            <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
               <stop offset="0%" stop-color="{theme['secondary']}"/>
               <stop offset="100%" stop-color="{theme['primary']}"/>
             </linearGradient>
-            <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="{theme['accent']}"/>
               <stop offset="100%" stop-color="{BRAND_TOKENS['brand_green_600']}"/>
             </linearGradient>
@@ -1934,8 +2330,8 @@ def render_svg(page, lang):
               <stop offset="0%" stop-color="{theme['secondary']}"/>
               <stop offset="100%" stop-color="{theme['accent']}"/>
             </linearGradient>
-            <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#98b7cc" flood-opacity="0.25"/>
+            <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#98b7cc" flood-opacity="0.18"/>
             </filter>
           </defs>
           <rect width="1600" height="900" fill="url(#bg)"/>
@@ -1943,32 +2339,10 @@ def render_svg(page, lang):
             <circle cx="1420" cy="110" r="210" fill="#d8efff"/>
             <circle cx="190" cy="770" r="250" fill="#ebf7da"/>
           </g>
-          <g filter="url(#shadow)">
-            <rect x="360" y="132" width="880" height="636" rx="40" fill="rgba(255,255,255,0.74)"/>
-            <rect x="430" y="204" width="740" height="492" rx="34" fill="rgba(255,255,255,0.58)"/>
+          <g filter="url(#shadowSoft)">
+            <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(255,255,255,0.42)"/>
           </g>
-          <g filter="url(#shadow)">
-            <circle cx="800" cy="450" r="176" fill="url(#blueOrb)"/>
-            <circle cx="800" cy="450" r="114" fill="rgba(255,255,255,0.92)"/>
-            <circle cx="800" cy="450" r="56" fill="url(#accent)"/>
-          </g>
-          <g filter="url(#shadow)">
-            <rect x="520" y="274" width="154" height="92" rx="24" fill="rgba(255,255,255,0.94)"/>
-            <rect x="926" y="312" width="164" height="104" rx="24" fill="rgba(255,255,255,0.92)"/>
-            <rect x="540" y="540" width="176" height="102" rx="24" fill="rgba(255,255,255,0.9)"/>
-            <rect x="886" y="548" width="194" height="118" rx="24" fill="rgba(255,255,255,0.94)"/>
-          </g>
-          <g fill="none" stroke-linecap="round">
-            <path d="M574 320 H628" stroke="url(#line)" stroke-width="12"/>
-            <path d="M954 364 H1036" stroke="url(#line)" stroke-width="12"/>
-            <path d="M572 592 H650" stroke="url(#line)" stroke-width="12"/>
-            <path d="M924 598 H1022" stroke="url(#line)" stroke-width="12"/>
-            <path d="M936 634 H998" stroke="{theme['primary']}" stroke-width="10" opacity="0.72"/>
-          </g>
-          <g opacity="0.7">
-            <circle cx="800" cy="450" r="226" fill="none" stroke="rgba(255,255,255,0.46)" stroke-width="2"/>
-            <circle cx="800" cy="450" r="266" fill="none" stroke="rgba(5,150,239,0.18)" stroke-width="2"/>
-          </g>
+          {scene}
         </svg>
         """
     )
@@ -2389,7 +2763,7 @@ SITE_CSS = dedent(
     }
 
     .main-shell {
-      padding: 40px 0 88px;
+      padding: 28px 0 88px;
       display: grid;
       gap: 28px;
     }
@@ -2778,6 +3152,12 @@ SITE_CSS = dedent(
       margin-bottom: 18px;
       max-width: 12ch;
       letter-spacing: -0.04em;
+    }
+
+    .hero-page h1 {
+      font-size: clamp(2.3rem, 4.2vw, 4.4rem);
+      max-width: 15ch;
+      line-height: 1.04;
     }
 
     h2 {

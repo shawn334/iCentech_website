@@ -19,7 +19,7 @@
     { "key": "company", "label_zh": "公司介绍", "label_en": "Company", "slug": "company" },
     { "key": "news-blog", "label_zh": "博客", "label_en": "Blog", "slug": "news-blog" },
     { "key": "career", "label_zh": "加入我们", "label_en": "Career", "slug": "career" },
-    { "key": "freelance", "label_zh": "自由职业合作", "label_en": "Freelance", "slug": "freelance" }
+    { "key": "freelance", "label_zh": "合作网络", "label_en": "Freelance", "slug": "freelance" }
   ],
   "pages": [
     {
@@ -143,8 +143,8 @@
     },
     {
       "slug": "freelance",
-      "title_zh": "自由职业合作",
-      "title_en": "Freelance",
+      "title_zh": "合作网络",
+      "title_en": "Freelance Network",
       "summary_zh": "欢迎译员、审校、配音和语言技术人才加入合作网络。",
       "summary_en": "Join our freelance network for translation, review, voice, and language-tech work."
     }

@@ -5,15 +5,11 @@
       <stop offset="55%" stop-color="#ffffff"/>
       <stop offset="100%" stop-color="#f4fbff"/>
     </linearGradient>
-    <linearGradient id="panelGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.92)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0.58)"/>
-    </linearGradient>
-    <linearGradient id="blueOrb" x1="20%" y1="20%" x2="85%" y2="85%">
+    <linearGradient id="primaryOrb" x1="20%" y1="20%" x2="85%" y2="85%">
       <stop offset="0%" stop-color="#2eaaf7"/>
       <stop offset="100%" stop-color="#0e78ca"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="accentOrb" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#7fcf29"/>
       <stop offset="100%" stop-color="#63a60b"/>
     </linearGradient>
@@ -21,8 +17,8 @@
       <stop offset="0%" stop-color="#2eaaf7"/>
       <stop offset="100%" stop-color="#7fcf29"/>
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#98b7cc" flood-opacity="0.25"/>
+    <filter id="shadowSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#98b7cc" flood-opacity="0.18"/>
     </filter>
   </defs>
   <rect width="1600" height="900" fill="url(#bg)"/>
@@ -30,30 +26,8 @@
     <circle cx="1420" cy="110" r="210" fill="#d8efff"/>
     <circle cx="190" cy="770" r="250" fill="#ebf7da"/>
   </g>
-  <g filter="url(#shadow)">
-    <rect x="360" y="132" width="880" height="636" rx="40" fill="rgba(255,255,255,0.74)"/>
-    <rect x="430" y="204" width="740" height="492" rx="34" fill="rgba(255,255,255,0.58)"/>
+  <g filter="url(#shadowSoft)">
+    <rect x="128" y="106" width="1344" height="688" rx="54" fill="rgba(255,255,255,0.42)"/>
   </g>
-  <g filter="url(#shadow)">
-    <circle cx="800" cy="450" r="176" fill="url(#blueOrb)"/>
-    <circle cx="800" cy="450" r="114" fill="rgba(255,255,255,0.92)"/>
-    <circle cx="800" cy="450" r="56" fill="url(#accent)"/>
-  </g>
-  <g filter="url(#shadow)">
-    <rect x="520" y="274" width="154" height="92" rx="24" fill="rgba(255,255,255,0.94)"/>
-    <rect x="926" y="312" width="164" height="104" rx="24" fill="rgba(255,255,255,0.92)"/>
-    <rect x="540" y="540" width="176" height="102" rx="24" fill="rgba(255,255,255,0.9)"/>
-    <rect x="886" y="548" width="194" height="118" rx="24" fill="rgba(255,255,255,0.94)"/>
-  </g>
-  <g fill="none" stroke-linecap="round">
-    <path d="M574 320 H628" stroke="url(#line)" stroke-width="12"/>
-    <path d="M954 364 H1036" stroke="url(#line)" stroke-width="12"/>
-    <path d="M572 592 H650" stroke="url(#line)" stroke-width="12"/>
-    <path d="M924 598 H1022" stroke="url(#line)" stroke-width="12"/>
-    <path d="M936 634 H998" stroke="#0e78ca" stroke-width="10" opacity="0.72"/>
-  </g>
-  <g opacity="0.7">
-    <circle cx="800" cy="450" r="226" fill="none" stroke="rgba(255,255,255,0.46)" stroke-width="2"/>
-    <circle cx="800" cy="450" r="266" fill="none" stroke="rgba(5,150,239,0.18)" stroke-width="2"/>
-  </g>
+  <rect x="176" y="154" width="1248" height="590" rx="42" fill="rgba(255,255,255,0.92)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="248" y="216" width="864" height="466" rx="34" fill="rgba(255,255,255,0.98)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="1144" y="216" width="208" height="466" rx="34" fill="rgba(247,251,253,0.96)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="248" y="216" width="864" height="282" rx="34" fill="url(#primaryOrb)" opacity="0.9"/><circle cx="680" cy="356" r="68" fill="rgba(255,255,255,0.94)"/><path d="M652 320l78 36-78 36z" fill="url(#primaryOrb)"/><rect x="310" y="532" width="744" height="92" rx="26" fill="rgba(241,248,252,0.96)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="350" y="568" width="520" height="16" rx="8" fill="rgba(17,52,76,0.1)"/><rect x="350" y="568" width="322" height="16" rx="8" fill="url(#line)"/><rect x="348" y="464" width="520" height="18" rx="9" fill="rgba(255,255,255,0.88)"/><rect x="348" y="500" width="436" height="14" rx="7" fill="rgba(255,255,255,0.72)"/><rect x="1182" y="284" width="132" height="80" rx="22" fill="rgba(255,255,255,0.98)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="1210" y="308" width="76" height="14" rx="7" fill="rgba(17,52,76,0.14)"/><rect x="1210" y="332" width="56" height="10" rx="5" fill="rgba(5,150,239,0.18)"/><rect x="1182" y="408" width="132" height="80" rx="22" fill="rgba(241,250,233,0.96)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="1210" y="432" width="76" height="14" rx="7" fill="rgba(17,52,76,0.14)"/><rect x="1210" y="456" width="56" height="10" rx="5" fill="rgba(5,150,239,0.18)"/><rect x="1182" y="532" width="132" height="80" rx="22" fill="rgba(255,255,255,0.98)" stroke="rgba(17,52,76,0.08)" stroke-width="2"/><rect x="1210" y="556" width="76" height="14" rx="7" fill="rgba(17,52,76,0.14)"/><rect x="1210" y="580" width="56" height="10" rx="5" fill="rgba(5,150,239,0.18)"/>
 </svg>
