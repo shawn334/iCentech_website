@@ -87,8 +87,8 @@
         <h1>公司介绍</h1>
         <p class="lead">了解 iCentech 如何用团队协作和流程管理支持全球化项目。</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/zh/index.html">返回首页</a>
-          <a class="btn btn-secondary" href="/zh/company.html">查看公司介绍</a>
+          <a class="btn btn-primary" href="#contact-form">立即留言</a>
+          <a class="btn btn-secondary" href="mailto:info@icentech.com">发送邮件</a>
         </div>
       </div>
       
@@ -196,6 +196,67 @@
             </div>
       </article>
     </section>
+
+    
+    <section class="section-shell contact-shell" id="contact-form">
+      <div class="contact-layout">
+        <article class="panel contact-info-panel">
+          <span class="section-kicker">留言咨询</span>
+          <h2>给我们留言</h2>
+          <p>告诉我们你的项目内容、时间要求和目标市场，我们会通过邮件跟进。</p>
+          <div class="contact-note">
+            <h3>建议提供的信息</h3>
+            <p>先给一个简短需求就可以开始。如果你更习惯邮件，也可以直接发到 info@icentech.com。</p>
+            <ul class="contact-detail-list">
+              <li>项目类型或内容类型</li><li>目标语言或目标市场</li><li>期望时间</li><li>可供参考的文件或链接</li>
+            </ul>
+          </div>
+          <p class="contact-email-note">
+            <span>也可以直接发邮件：</span>
+            <a href="mailto:info@icentech.com">info@icentech.com</a>
+          </p>
+        </article>
+        <article class="panel contact-form-panel">
+          <div class="contact-status" data-contact-status hidden tabindex="-1">
+            已收到你的留言，我们会通过邮件尽快联系你。
+          </div>
+          <form class="contact-form" action="https://formsubmit.co/info@icentech.com" method="POST" data-contact-form>
+            <input type="hidden" name="_subject" value="新网站留言 - iCentech">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://www.icentech.com/zh/company.html?submitted=1#contact-form">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="site_language" value="zh">
+            <div class="contact-grid">
+              <label class="field">
+                <span>姓名</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label class="field">
+                <span>工作邮箱</span>
+                <input type="email" name="email" autocomplete="email" inputmode="email" required>
+              </label>
+              <label class="field">
+                <span>公司</span>
+                <input type="text" name="company" autocomplete="organization">
+              </label>
+              <label class="field">
+                <span>项目类型</span>
+                <select name="project_type">
+                  <option value="">请选择</option>
+                  <option value="translation">翻译服务</option><option value="localization">本地化</option><option value="engineering">工程 / 测试</option><option value="video">视频 / 多媒体</option><option value="other">其他</option>
+                </select>
+              </label>
+              <label class="field field-full">
+                <span>留言内容</span>
+                <textarea name="message" rows="6" placeholder="简要说明项目内容、目标语言和时间要求。" required></textarea>
+              </label>
+            </div>
+            <button class="btn btn-primary contact-submit" type="submit">发送留言</button>
+          </form>
+        </article>
+      </div>
+    </section>
+    
     
   </main>
   <footer class="site-footer">
@@ -407,6 +468,26 @@
   });
 
   window.addEventListener("resize", () => groups.forEach(closeGroup));
+})();
+</script>
+
+  <script>
+(() => {
+  const form = document.querySelector("[data-contact-form]");
+  const status = document.querySelector("[data-contact-status]");
+  if (!form || !status) {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("submitted") === "1") {
+    status.hidden = false;
+    status.focus();
+    params.delete("submitted");
+    const nextQuery = params.toString();
+    const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash || ""}`;
+    window.history.replaceState({}, "", nextUrl);
+  }
 })();
 </script>
 </body>

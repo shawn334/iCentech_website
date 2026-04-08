@@ -24,6 +24,7 @@ FAVICON_ASSET_NAME = "favicon.png"
 APPLE_TOUCH_ICON_ASSET_NAME = "apple-touch-icon.png"
 ICON_192_ASSET_NAME = "icon-192.png"
 DEFAULT_SITE_ORIGIN = "https://www.icentech.com"
+FORMSUBMIT_ENDPOINT = "https://formsubmit.co/info@icentech.com"
 
 
 def normalize_base_path(value):
@@ -868,6 +869,73 @@ PAGE_DETAILS = {
     },
 }
 
+CONTACT_FORM_CONTENT = {
+    "en": {
+        "section_kicker": "Contact",
+        "title": "Leave a Message",
+        "body": "Tell us what you need, your timeline, and the markets involved. We will follow up by email.",
+        "details_title": "What to Share",
+        "details_body": "A short brief is enough to start. If email is easier, you can also write to info@icentech.com.",
+        "details": [
+            "Project type or content type",
+            "Languages or target markets",
+            "Desired timeline",
+            "Any files or links we should review",
+        ],
+        "name_label": "Name",
+        "email_label": "Work Email",
+        "company_label": "Company",
+        "project_label": "Project Type",
+        "project_placeholder": "Select one",
+        "project_options": [
+            ("translation", "Translation"),
+            ("localization", "Localization"),
+            ("engineering", "Engineering / QA"),
+            ("video", "Video / Multimedia"),
+            ("other", "Other"),
+        ],
+        "message_label": "Message",
+        "message_placeholder": "Briefly describe your project, language pairs, and timeline.",
+        "submit_label": "Send Message",
+        "email_hint": "Prefer email?",
+        "email_cta": "Write to info@icentech.com",
+        "success_message": "Thanks. Your message has been sent and we will follow up by email.",
+        "subject": "New website inquiry - iCentech",
+    },
+    "zh": {
+        "section_kicker": "留言咨询",
+        "title": "给我们留言",
+        "body": "告诉我们你的项目内容、时间要求和目标市场，我们会通过邮件跟进。",
+        "details_title": "建议提供的信息",
+        "details_body": "先给一个简短需求就可以开始。如果你更习惯邮件，也可以直接发到 info@icentech.com。",
+        "details": [
+            "项目类型或内容类型",
+            "目标语言或目标市场",
+            "期望时间",
+            "可供参考的文件或链接",
+        ],
+        "name_label": "姓名",
+        "email_label": "工作邮箱",
+        "company_label": "公司",
+        "project_label": "项目类型",
+        "project_placeholder": "请选择",
+        "project_options": [
+            ("translation", "翻译服务"),
+            ("localization", "本地化"),
+            ("engineering", "工程 / 测试"),
+            ("video", "视频 / 多媒体"),
+            ("other", "其他"),
+        ],
+        "message_label": "留言内容",
+        "message_placeholder": "简要说明项目内容、目标语言和时间要求。",
+        "submit_label": "发送留言",
+        "email_hint": "也可以直接发邮件：",
+        "email_cta": "info@icentech.com",
+        "success_message": "已收到你的留言，我们会通过邮件尽快联系你。",
+        "subject": "新网站留言 - iCentech",
+    },
+}
+
 
 def page_filename(slug):
     return "index.html" if slug == "" else f"{slug}.html"
@@ -1529,6 +1597,77 @@ def render_page_cards(data, slugs, lang, card_label):
     return "".join(cards)
 
 
+def render_contact_section(lang, data):
+    copy = CONTACT_FORM_CONTENT[lang]
+    company_url = absolute_site_url(data, page_href(lang, "company"))
+    success_url = f"{company_url}?submitted=1#contact-form"
+    project_options = "".join(
+        f'<option value="{html.escape(value)}">{html.escape(label)}</option>'
+        for value, label in copy["project_options"]
+    )
+    detail_items = "".join(f"<li>{html.escape(item)}</li>" for item in copy["details"])
+    return f"""
+    <section class="section-shell contact-shell" id="contact-form">
+      <div class="contact-layout">
+        <article class="panel contact-info-panel">
+          <span class="section-kicker">{html.escape(copy['section_kicker'])}</span>
+          <h2>{html.escape(copy['title'])}</h2>
+          <p>{html.escape(copy['body'])}</p>
+          <div class="contact-note">
+            <h3>{html.escape(copy['details_title'])}</h3>
+            <p>{html.escape(copy['details_body'])}</p>
+            <ul class="contact-detail-list">
+              {detail_items}
+            </ul>
+          </div>
+          <p class="contact-email-note">
+            <span>{html.escape(copy['email_hint'])}</span>
+            <a href="mailto:info@icentech.com">{html.escape(copy['email_cta'])}</a>
+          </p>
+        </article>
+        <article class="panel contact-form-panel">
+          <div class="contact-status" data-contact-status hidden tabindex="-1">
+            {html.escape(copy['success_message'])}
+          </div>
+          <form class="contact-form" action="{FORMSUBMIT_ENDPOINT}" method="POST" data-contact-form>
+            <input type="hidden" name="_subject" value="{html.escape(copy['subject'])}">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="{html.escape(success_url)}">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="site_language" value="{lang}">
+            <div class="contact-grid">
+              <label class="field">
+                <span>{html.escape(copy['name_label'])}</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label class="field">
+                <span>{html.escape(copy['email_label'])}</span>
+                <input type="email" name="email" autocomplete="email" inputmode="email" required>
+              </label>
+              <label class="field">
+                <span>{html.escape(copy['company_label'])}</span>
+                <input type="text" name="company" autocomplete="organization">
+              </label>
+              <label class="field">
+                <span>{html.escape(copy['project_label'])}</span>
+                <select name="project_type">
+                  <option value="">{html.escape(copy['project_placeholder'])}</option>
+                  {project_options}
+                </select>
+              </label>
+              <label class="field field-full">
+                <span>{html.escape(copy['message_label'])}</span>
+                <textarea name="message" rows="6" placeholder="{html.escape(copy['message_placeholder'])}" required></textarea>
+              </label>
+            </div>
+            <button class="btn btn-primary contact-submit" type="submit">{html.escape(copy['submit_label'])}</button>
+          </form>
+        </article>
+      </div>
+    </section>
+    """
+
+
 def render_group_page(page, lang, data):
     detail = get_page_detail(page, lang)
     title = page["title_zh"] if lang == "zh" else page["title_en"]
@@ -1821,6 +1960,16 @@ def render_inner_page(page, lang, data):
     title = page["title_zh"] if lang == "zh" else page["title_en"]
     summary = page["summary_zh"] if lang == "zh" else page["summary_en"]
     related = render_related_cards(data, page, lang)
+    hero_primary_href = page_href(lang, "")
+    hero_primary_label = "返回首页" if lang == "zh" else "Back to Home"
+    hero_secondary_href = page_href(lang, "company")
+    hero_secondary_label = "查看公司介绍" if lang == "zh" else "See Company"
+    if page["slug"] == "company":
+        hero_primary_href = "#contact-form"
+        hero_primary_label = "立即留言" if lang == "zh" else "Leave a Message"
+        hero_secondary_href = "mailto:info@icentech.com"
+        hero_secondary_label = "发送邮件" if lang == "zh" else "Email Us"
+    contact_section = render_contact_section(lang, data) if page["slug"] == "company" else ""
     return f"""
     <section class="hero hero-page">
       <div class="hero-copy">
@@ -1828,8 +1977,8 @@ def render_inner_page(page, lang, data):
         <h1>{html.escape(title)}</h1>
         <p class="lead">{html.escape(summary)}</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="{page_href(lang, '')}">{'返回首页' if lang == 'zh' else 'Back to Home'}</a>
-          <a class="btn btn-secondary" href="{page_href(lang, 'company')}">{'查看公司介绍' if lang == 'zh' else 'See Company'}</a>
+          <a class="btn btn-primary" href="{hero_primary_href}">{hero_primary_label}</a>
+          <a class="btn btn-secondary" href="{hero_secondary_href}">{hero_secondary_label}</a>
         </div>
       </div>
       {render_page_visual(page, detail, lang, chips=detail['outputs'], label='服务示意' if lang == 'zh' else 'Service View')}
@@ -1881,6 +2030,8 @@ def render_inner_page(page, lang, data):
         <div class="card-grid compact-grid">{related}</div>
       </article>
     </section>
+
+    {contact_section}
     """
 
 
@@ -1921,6 +2072,7 @@ def render_page(data, page, lang):
     body_content = render_home(page, lang, data) if page["slug"] == "" else render_inner_page(page, lang, data)
     page_url = absolute_site_url(data, page_href(lang, page["slug"]))
     og_image = absolute_asset_url(data, f"{page_asset_basename(page['slug'])}-{lang}.svg")
+    extra_script = f"\n  <script>{CONTACT_FORM_SCRIPT}</script>" if page["slug"] == "company" else ""
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
@@ -1967,6 +2119,7 @@ def render_page(data, page, lang):
   </footer>
   <script>{THEME_SCRIPT}</script>
   <script>{NAV_SCRIPT}</script>
+{extra_script}
 </body>
 </html>
 """
@@ -2664,6 +2817,29 @@ THEME_SCRIPT = dedent(
       });
 
       updateButton();
+    })();
+    """
+)
+
+
+CONTACT_FORM_SCRIPT = dedent(
+    """
+    (() => {
+      const form = document.querySelector("[data-contact-form]");
+      const status = document.querySelector("[data-contact-status]");
+      if (!form || !status) {
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("submitted") === "1") {
+        status.hidden = false;
+        status.focus();
+        params.delete("submitted");
+        const nextQuery = params.toString();
+        const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash || ""}`;
+        window.history.replaceState({}, "", nextUrl);
+      }
     })();
     """
 )
@@ -3584,6 +3760,135 @@ SITE_CSS = dedent(
       gap: 18px;
     }
 
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .contact-info-panel,
+    .contact-form-panel {
+      padding: 28px;
+    }
+
+    .contact-info-panel {
+      gap: 16px;
+      align-content: start;
+    }
+
+    .contact-note {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(143, 208, 255, 0.1);
+    }
+
+    .contact-note h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    .contact-detail-list {
+      margin: 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 6px;
+      color: var(--ink-soft);
+    }
+
+    .contact-email-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.94rem;
+    }
+
+    .contact-email-note a {
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .contact-form-panel {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    .field span {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid rgba(143, 208, 255, 0.14);
+      border-radius: 16px;
+      background: rgba(7, 17, 26, 0.36);
+      color: var(--ink);
+      font: inherit;
+      padding: 14px 15px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 152px;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: color-mix(in srgb, var(--ink-soft) 78%, white 22%);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(143, 208, 255, 0.34);
+      box-shadow: 0 0 0 4px rgba(5, 150, 239, 0.12);
+      background: rgba(7, 17, 26, 0.48);
+    }
+
+    .contact-submit {
+      min-width: 180px;
+    }
+
+    .contact-status {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(120, 197, 21, 0.2);
+      background: rgba(120, 197, 21, 0.12);
+      color: var(--ink);
+      font-weight: 600;
+    }
+
     .section-heading {
       display: grid;
       gap: 8px;
@@ -4318,6 +4623,31 @@ SITE_CSS = dedent(
       border-color: rgba(17, 52, 76, 0.1);
     }
 
+    html[data-theme="light"] .contact-note {
+      background: rgba(5, 150, 239, 0.04);
+      border-color: rgba(17, 52, 76, 0.08);
+    }
+
+    html[data-theme="light"] .field input,
+    html[data-theme="light"] .field select,
+    html[data-theme="light"] .field textarea {
+      background: rgba(255, 255, 255, 0.96);
+      border-color: rgba(17, 52, 76, 0.1);
+      color: var(--ink);
+    }
+
+    html[data-theme="light"] .field input:focus,
+    html[data-theme="light"] .field select:focus,
+    html[data-theme="light"] .field textarea:focus {
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(12, 121, 214, 0.1);
+    }
+
+    html[data-theme="light"] .contact-status {
+      background: rgba(120, 197, 21, 0.12);
+      border-color: rgba(67, 110, 22, 0.18);
+    }
+
     html[data-theme="light"] .text-link,
     html[data-theme="light"] .post-content a,
     html[data-theme="light"] .solution-link {
@@ -4811,6 +5141,21 @@ SITE_CSS = dedent(
 
       .btn {
         width: 100%;
+      }
+
+      .contact-layout,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info-panel,
+      .contact-form-panel {
+        padding: 20px;
+      }
+
+      .field,
+      .field-full {
+        grid-column: auto;
       }
 
       .pill-list li,

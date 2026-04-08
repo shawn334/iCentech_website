@@ -87,8 +87,8 @@
         <h1>Company</h1>
         <p class="lead">See how iCentech supports global projects with coordinated teams and clear process.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/en/index.html">Back to Home</a>
-          <a class="btn btn-secondary" href="/en/company.html">See Company</a>
+          <a class="btn btn-primary" href="#contact-form">Leave a Message</a>
+          <a class="btn btn-secondary" href="mailto:info@icentech.com">Email Us</a>
         </div>
       </div>
       
@@ -196,6 +196,67 @@
             </div>
       </article>
     </section>
+
+    
+    <section class="section-shell contact-shell" id="contact-form">
+      <div class="contact-layout">
+        <article class="panel contact-info-panel">
+          <span class="section-kicker">Contact</span>
+          <h2>Leave a Message</h2>
+          <p>Tell us what you need, your timeline, and the markets involved. We will follow up by email.</p>
+          <div class="contact-note">
+            <h3>What to Share</h3>
+            <p>A short brief is enough to start. If email is easier, you can also write to info@icentech.com.</p>
+            <ul class="contact-detail-list">
+              <li>Project type or content type</li><li>Languages or target markets</li><li>Desired timeline</li><li>Any files or links we should review</li>
+            </ul>
+          </div>
+          <p class="contact-email-note">
+            <span>Prefer email?</span>
+            <a href="mailto:info@icentech.com">Write to info@icentech.com</a>
+          </p>
+        </article>
+        <article class="panel contact-form-panel">
+          <div class="contact-status" data-contact-status hidden tabindex="-1">
+            Thanks. Your message has been sent and we will follow up by email.
+          </div>
+          <form class="contact-form" action="https://formsubmit.co/info@icentech.com" method="POST" data-contact-form>
+            <input type="hidden" name="_subject" value="New website inquiry - iCentech">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://www.icentech.com/en/company.html?submitted=1#contact-form">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="site_language" value="en">
+            <div class="contact-grid">
+              <label class="field">
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label class="field">
+                <span>Work Email</span>
+                <input type="email" name="email" autocomplete="email" inputmode="email" required>
+              </label>
+              <label class="field">
+                <span>Company</span>
+                <input type="text" name="company" autocomplete="organization">
+              </label>
+              <label class="field">
+                <span>Project Type</span>
+                <select name="project_type">
+                  <option value="">Select one</option>
+                  <option value="translation">Translation</option><option value="localization">Localization</option><option value="engineering">Engineering / QA</option><option value="video">Video / Multimedia</option><option value="other">Other</option>
+                </select>
+              </label>
+              <label class="field field-full">
+                <span>Message</span>
+                <textarea name="message" rows="6" placeholder="Briefly describe your project, language pairs, and timeline." required></textarea>
+              </label>
+            </div>
+            <button class="btn btn-primary contact-submit" type="submit">Send Message</button>
+          </form>
+        </article>
+      </div>
+    </section>
+    
     
   </main>
   <footer class="site-footer">
@@ -407,6 +468,26 @@
   });
 
   window.addEventListener("resize", () => groups.forEach(closeGroup));
+})();
+</script>
+
+  <script>
+(() => {
+  const form = document.querySelector("[data-contact-form]");
+  const status = document.querySelector("[data-contact-status]");
+  if (!form || !status) {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("submitted") === "1") {
+    status.hidden = false;
+    status.focus();
+    params.delete("submitted");
+    const nextQuery = params.toString();
+    const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash || ""}`;
+    window.history.replaceState({}, "", nextUrl);
+  }
 })();
 </script>
 </body>
