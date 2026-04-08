@@ -1969,7 +1969,7 @@ def render_inner_page(page, lang, data):
         hero_primary_label = "立即留言" if lang == "zh" else "Leave a Message"
         hero_secondary_href = "mailto:info@icentech.com"
         hero_secondary_label = "发送邮件" if lang == "zh" else "Email Us"
-    contact_section = render_contact_section(lang, data) if page["slug"] == "company" else ""
+    contact_section = f"\n{render_contact_section(lang, data)}" if page["slug"] == "company" else ""
     return f"""
     <section class="hero hero-page">
       <div class="hero-copy">
@@ -2029,9 +2029,7 @@ def render_inner_page(page, lang, data):
         <h2>{'常搭配的服务' if lang == 'zh' else 'Often Paired With'}</h2>
         <div class="card-grid compact-grid">{related}</div>
       </article>
-    </section>
-
-    {contact_section}
+    </section>{contact_section}
     """
 
 
@@ -2072,7 +2070,7 @@ def render_page(data, page, lang):
     body_content = render_home(page, lang, data) if page["slug"] == "" else render_inner_page(page, lang, data)
     page_url = absolute_site_url(data, page_href(lang, page["slug"]))
     og_image = absolute_asset_url(data, f"{page_asset_basename(page['slug'])}-{lang}.svg")
-    extra_script = f"\n  <script>{CONTACT_FORM_SCRIPT}</script>" if page["slug"] == "company" else ""
+    extra_script = f"  <script>{CONTACT_FORM_SCRIPT}</script>\n" if page["slug"] == "company" else ""
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
@@ -2119,8 +2117,7 @@ def render_page(data, page, lang):
   </footer>
   <script>{THEME_SCRIPT}</script>
   <script>{NAV_SCRIPT}</script>
-{extra_script}
-</body>
+{extra_script}</body>
 </html>
 """
 
