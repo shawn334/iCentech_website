@@ -23,7 +23,7 @@ LOGO_MARK_ASSET_NAME = "icentech-logo-mark.png"
 FAVICON_ASSET_NAME = "favicon.png"
 APPLE_TOUCH_ICON_ASSET_NAME = "apple-touch-icon.png"
 ICON_192_ASSET_NAME = "icon-192.png"
-DEFAULT_SITE_ORIGIN = "https://www.icentech.com"
+DEFAULT_SITE_ORIGIN = "https://www.icentec.com"
 FORMSUBMIT_ENDPOINT = "https://formsubmit.co/info@icentech.com"
 
 
@@ -5342,6 +5342,8 @@ def main():
                 render_blog_detail_document(data, blog_page, post, post_lang, blog_posts),
                 encoding="utf-8",
             )
+
+    (OUT_DIR / "CNAME").write_text("www.icentec.com\n", encoding="utf-8")
 
     (OUT_DIR / "index.html").write_text(
         f"""<!doctype html>
